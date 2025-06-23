@@ -5,11 +5,18 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import {
-  Dialog, DialogTrigger, DialogContent
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogDescription
 } from '@/components/ui/dialog'
 import {
-  Select, SelectTrigger, SelectValue,
-  SelectContent, SelectItem
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem
 } from '@/components/ui/select'
 
 interface Subject {
@@ -31,16 +38,20 @@ interface Tutor {
 export default function TutorsAdmin() {
   const [tutors, setTutors] = useState<Tutor[]>([])
   const [subjects, setSubjects] = useState<Subject[]>([])
-  const [form, setForm] = useState<any>({
-    id: '',
-    name: '',
-    bio: '',
-    mode: 'Online',
-    profile_url: '',
-    file: null,
-    subjectIds: [] as string[],
-  })
+  const [form, setForm] = useState<any>(initForm())
   const [openId, setOpenId] = useState<string | null>(null)
+
+  function initForm() {
+    return {
+      id: '',
+      name: '',
+      bio: '',
+      mode: 'Online',
+      profile_url: '',
+      file: null,
+      subjectIds: [] as string[],
+    }
+  }
 
   useEffect(() => {
     fetchData()
@@ -140,7 +151,7 @@ export default function TutorsAdmin() {
     }
 
     toast.success(isEdit ? 'Tutor updated' : 'Tutor created')
-    setForm({ id: '', name: '', bio: '', mode: 'Online', profile_url: '', file: null, subjectIds: [] })
+    setForm(initForm())
     setOpenId(null)
     fetchData()
   }
@@ -163,16 +174,14 @@ export default function TutorsAdmin() {
           <h1 className="text-2xl font-bold">Tutors Admin</h1>
           <Dialog open={openId === 'new'} onOpenChange={(v) => setOpenId(v ? 'new' : null)}>
             <DialogTrigger asChild>
-              <Button>Add Tutor</Button>
+              <Button onClick={() => setForm(initForm())}>Add Tutor</Button>
             </DialogTrigger>
-            <DialogContent>
-              <TutorForm
-                form={form}
-                setForm={setForm}
-                subjects={subjects}
-                onSave={handleSubmit}
-              />
-            </DialogContent>
+            <TutorDialogContent
+              form={form}
+              setForm={setForm}
+              subjects={subjects}
+              onSubmit={handleSubmit}
+            />
           </Dialog>
         </div>
 
@@ -198,14 +207,12 @@ export default function TutorsAdmin() {
                     <DialogTrigger asChild>
                       <Button variant="outline" onClick={() => openEdit(tutor)}>Edit</Button>
                     </DialogTrigger>
-                    <DialogContent>
-                      <TutorForm
-                        form={form}
-                        setForm={setForm}
-                        subjects={subjects}
-                        onSave={handleSubmit}
-                      />
-                    </DialogContent>
+                    <TutorDialogContent
+                      form={form}
+                      setForm={setForm}
+                      subjects={subjects}
+                      onSubmit={handleSubmit}
+                    />
                   </Dialog>
                   <Button variant="destructive" onClick={() => archiveTutor(tutor.id)}>Archive</Button>
                 </div>
@@ -232,77 +239,90 @@ export default function TutorsAdmin() {
   )
 }
 
-function TutorForm({ form, setForm, subjects, onSave }: any) {
+function TutorDialogContent({ form, setForm, subjects, onSubmit }: any) {
   return (
-    <div className="space-y-4">
-      <Input
-        placeholder="Name"
-        value={form.name}
-        onChange={(e) => setForm((f: any) => ({ ...f, name: e.target.value }))}
-      />
-      <Input
-        placeholder="Bio"
-        value={form.bio}
-        onChange={(e) => setForm((f: any) => ({ ...f, bio: e.target.value }))}
-      />
-      <Select value={form.mode} onValueChange={(val) => setForm((f: any) => ({ ...f, mode: val }))}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select Mode" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="Online">Online</SelectItem>
-          <SelectItem value="In-person">In-person</SelectItem>
-          <SelectItem value="Both">Both</SelectItem>
-        </SelectContent>
-      </Select>
+    <DialogContent className="max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-white dark:bg-gray-900 text-black dark:text-white rounded-md shadow-xl">
 
-      <div>
-        <label className="block font-medium mb-1">Subjects</label>
-        <div className="grid grid-cols-2 gap-2">
-          {subjects.map((subj: Subject) => (
-            <label key={subj.id} className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={form.subjectIds.includes(subj.id)}
-                onChange={() =>
-                  setForm((f: any) => ({
-                    ...f,
-                    subjectIds: f.subjectIds.includes(subj.id)
-                      ? f.subjectIds.filter((id: string) => id !== subj.id)
-                      : [...f.subjectIds, subj.id]
-                  }))
-                }
-              />
-              {subj.name}
-            </label>
-          ))}
-        </div>
-      </div>
+      <DialogTitle className="text-xl font-bold">
+        {form.id ? 'Edit Tutor' : 'Add Tutor'}
+      </DialogTitle>
+      <DialogDescription className="text-sm text-muted-foreground mb-4">
+        Fill in the tutor's information below.
+      </DialogDescription>
 
-      <div>
-        <label className="block font-medium mb-1">Profile Picture</label>
+      <div className="space-y-4">
         <Input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            setForm((f: any) => ({
-              ...f,
-              file: e.target.files?.[0] || null
-            }))
-          }
+          placeholder="Name"
+          value={form.name}
+          onChange={(e) => setForm((f: any) => ({ ...f, name: e.target.value }))}
         />
-        {form.profile_url && (
-          <img
-            src={form.profile_url}
-            alt="Preview"
-            className="w-20 h-20 mt-2 object-cover rounded-full"
-          />
-        )}
-      </div>
+        <Input
+          placeholder="Bio"
+          value={form.bio}
+          onChange={(e) => setForm((f: any) => ({ ...f, bio: e.target.value }))}
+        />
+        <Select
+          value={form.mode}
+          onValueChange={(val) => setForm((f: any) => ({ ...f, mode: val }))}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select Mode" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Online">Online</SelectItem>
+            <SelectItem value="In-person">In-person</SelectItem>
+            <SelectItem value="Both">Both</SelectItem>
+          </SelectContent>
+        </Select>
 
-      <Button onClick={onSave} className="w-full">
-        {form.id ? 'Update' : 'Create'} Tutor
-      </Button>
-    </div>
+        <div>
+          <label className="block font-medium mb-1">Subjects</label>
+          <div className="grid grid-cols-2 gap-2">
+            {subjects.map((subj: Subject) => (
+              <label key={subj.id} className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={form.subjectIds.includes(subj.id)}
+                  onChange={() =>
+                    setForm((f: any) => ({
+                      ...f,
+                      subjectIds: f.subjectIds.includes(subj.id)
+                        ? f.subjectIds.filter((id: string) => id !== subj.id)
+                        : [...f.subjectIds, subj.id]
+                    }))
+                  }
+                />
+                {subj.name}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1">Profile Picture</label>
+          <Input
+            type="file"
+            accept="image/*"
+            onChange={(e) =>
+              setForm((f: any) => ({
+                ...f,
+                file: e.target.files?.[0] || null
+              }))
+            }
+          />
+          {form.profile_url && (
+            <img
+              src={form.profile_url}
+              alt="Preview"
+              className="w-20 h-20 mt-2 object-cover rounded-full"
+            />
+          )}
+        </div>
+
+        <Button onClick={onSubmit} className="w-full">
+          {form.id ? 'Update' : 'Create'} Tutor
+        </Button>
+      </div>
+    </DialogContent>
   )
 }
