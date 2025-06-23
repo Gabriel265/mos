@@ -8,14 +8,15 @@ export default function ResourcesAdmin() {
   const [resources, setResources] = useState<any[]>([])
   const [subjects, setSubjects] = useState<any[]>([])
   const [newRes, setNewRes] = useState({
-    title: '',
-    level: '',
-    subject_id: '',
-    external_link: '',
-    file: null,
-    type: '',
-    availability: [] as string[]
-  })
+  title: '',
+  level: '',
+  subject_id: '',
+  external_link: '',
+  file: null,
+  description: '',
+  availability: [] as string[]
+})
+
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const loader = useRef(null)
@@ -107,69 +108,64 @@ export default function ResourcesAdmin() {
     if (!data || data.length < 10) setHasMore(false)
   }
 
-  const detectType = (file: File | null, link: string): string => {
-    if (file) {
-      const ext = file.name.split('.').pop()?.toLowerCase()
-      if (ext === 'pdf') return 'Document'
-      if (['mp4', 'mov', 'avi'].includes(ext || '')) return 'Video'
-      if (['ppt', 'pptx'].includes(ext || '')) return 'Slide'
-    }
-    if (link.includes('youtube.com') || link.includes('youtu.be')) return 'Video'
-    if (link.includes('drive.google.com')) return 'Document'
-    return 'Other'
-  }
-
+  
   const handleAdd = async () => {
-    const { title, level, subject_id, external_link, file, type } = newRes
-    if (!title || !level || !subject_id) {
-      return toast.error('Title, Level, and Subject are required')
-    }
-    if (!file && !external_link) {
-      return toast.error('Provide at least a file or an external link')
-    }
+  const { title, level, subject_id, external_link, file, description } = newRes;
 
-    let fileUrl: string | null = null
-    let finalType = type
-
-    if (file) {
-      const { data, error } = await supabase.storage
-        .from('resources')
-        .upload(`files/${Date.now()}-${file.name}`, file, { upsert: true })
-
-      if (error || !data) {
-        return toast.error('File upload failed')
-      }
-
-      const { data: publicUrlData } = supabase.storage.from('resources').getPublicUrl(data.path)
-      fileUrl = publicUrlData?.publicUrl || null
-    }
-
-    if (!finalType || finalType === '') {
-      finalType = detectType(file, external_link)
-    }
-
-    const { error } = await supabase.from('resources').insert([{
-      title,
-      level,
-      subject_id,
-      external_link: external_link || null,
-      link: fileUrl || null,
-      type: finalType,
-      availability: newRes.availability,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }])
-
-    if (!error) {
-      toast.success('Resource added successfully')
-      setNewRes({ title: '', level: '', subject_id: '', external_link: '', file: null, type: '' })
-      setPage(1)
-      setHasMore(true)
-      fetchResources(true)
-    } else {
-      toast.error('Failed to add resource')
-    }
+  if (!title || !level || !subject_id || !description) {
+    return toast.error('Title, Level, Subject, and Description are required');
   }
+
+  if (!file && !external_link) {
+    return toast.error('Provide at least a file or an external link');
+  }
+
+  let fileUrl: string | null = null;
+
+  if (file) {
+    const { data, error } = await supabase.storage
+      .from('resources')
+      .upload(`files/${Date.now()}-${file.name}`, file, { upsert: true });
+
+    if (error || !data) {
+      return toast.error('File upload failed');
+    }
+
+    const { data: publicUrlData } = supabase.storage.from('resources').getPublicUrl(data.path);
+    fileUrl = publicUrlData?.publicUrl || null;
+  }
+
+  const { error } = await supabase.from('resources').insert([{
+    title,
+    level,
+    subject_id,
+    external_link: external_link || null,
+    link: fileUrl || null,
+    description,
+    availability: newRes.availability,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }]);
+
+  if (!error) {
+    toast.success('Resource added successfully');
+    setNewRes({
+      title: '',
+      level: '',
+      subject_id: '',
+      external_link: '',
+      file: null,
+      description: '',
+      availability: []
+    });
+    setPage(1);
+    setHasMore(true);
+    fetchResources(true);
+  } else {
+    toast.error('Failed to add resource');
+  }
+};
+
 
   const toggleArchive = async (id: string, current: boolean) => {
     const confirmed = confirm(current ? 'Unarchive this resource?' : 'Archive this resource?')
@@ -320,6 +316,9 @@ export default function ResourcesAdmin() {
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     Level: {res.level} | Type: {res.type} | Subject: {res.subjects?.name}
                   </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                     {res.description}
+                  </p>
                   {res.availability?.length > 0 && (
                     <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                       Available As: {res.availability.join(', ')}
@@ -381,7 +380,8 @@ export default function ResourcesAdmin() {
 
       {showAddModal && (
   <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-full max-w-xl space-y-4 shadow-lg border dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto space-y-4 shadow-lg border dark:border-gray-700">
+
       <h2 className="text-xl font-semibold">Add New Resource</h2>
 
       <input
@@ -409,17 +409,13 @@ export default function ResourcesAdmin() {
         ))}
       </select>
 
-      <select
+      <textarea
         className="w-full p-2 rounded border dark:bg-gray-800"
-        value={newRes.type}
-        onChange={(e) => setNewRes({ ...newRes, type: e.target.value })}
-      >
-        <option value="">Auto Detect Type</option>
-        <option value="Document">Document</option>
-        <option value="Video">Video</option>
-        <option value="Slide">Slide</option>
-        <option value="Other">Other</option>
-      </select>
+        placeholder="Short description of the resource"
+        value={newRes.description}
+        onChange={(e) => setNewRes({ ...newRes, description: e.target.value })}
+      />
+
 
       <input
         className="w-full p-2 rounded border dark:bg-gray-800"

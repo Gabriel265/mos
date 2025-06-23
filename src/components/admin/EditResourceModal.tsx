@@ -16,7 +16,7 @@ export function EditResourceModal({ resource, onClose, onSaved }: any) {
   const [level, setLevel] = useState(resource.level || '')
   const [subjectId, setSubjectId] = useState(resource.subject_id || '')
   const [externalLink, setExternalLink] = useState(resource.external_link || '')
-  const [type, setType] = useState(resource.type || '')
+  const [description, setDescription] = useState(resource.description || '')
   const [availability, setAvailability] = useState<string[]>(resource.availability || [])
   const [file, setFile] = useState<File | null>(null)
   const [subjects, setSubjects] = useState<any[]>([])
@@ -55,7 +55,7 @@ export function EditResourceModal({ resource, onClose, onSaved }: any) {
         subject_id: subjectId,
         external_link: externalLink || null,
         link: fileUrl || null,
-        type,
+        description,
         availability,
         updated_at: new Date().toISOString()
       })
@@ -81,7 +81,8 @@ export function EditResourceModal({ resource, onClose, onSaved }: any) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-900 p-6 rounded w-full max-w-md space-y-4">
+  <div className="bg-white dark:bg-gray-900 p-6 rounded w-full max-w-md space-y-4 shadow-lg border dark:border-gray-700 overflow-y-auto max-h-[90vh]">
+
         <h2 className="text-lg font-bold">Edit Resource</h2>
 
         <input
@@ -109,17 +110,13 @@ export function EditResourceModal({ resource, onClose, onSaved }: any) {
           ))}
         </select>
 
-        <select
+        <textarea
           className="w-full p-2 rounded border dark:bg-gray-800"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          <option value="">Select Type</option>
-          <option value="Document">Document</option>
-          <option value="Video">Video</option>
-          <option value="Slide">Slide</option>
-          <option value="Other">Other</option>
-        </select>
+          placeholder="Description of the resource"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
+        />
 
         <input
           className="w-full p-2 rounded border dark:bg-gray-800"
