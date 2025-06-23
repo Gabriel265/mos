@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === VARIABLES === */
+:root {
+  --color-accent: #f97316; /* orange-500 */
+  --color-accent-hover: #ea580c; /* orange-600 */
+  --color-bg: #ffffff;
+  --color-bg-dark: #111827;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-card: #f9fafb;
+  --color-card-dark: #1f2937;
+}
+
+/* === GENERAL LAYOUT === */
+body {
+  @apply bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.dark body {
+  @apply bg-[var(--color-bg-dark)] text-gray-100;
+}
+
+/* === CONTAINERS === */
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.section {
+  @apply py-16;
+}
+
+.section-header {
+  @apply text-3xl font-bold mb-8 text-center;
+}
+
+.subheader {
+  @apply text-center text-gray-600 dark:text-gray-400 mb-6;
+}
+
+/* === HEADER & FOOTER === */
+.header {
+  @apply bg-gray-800 text-white;
+}
+
+.header-top {
+  @apply bg-gray-900 py-2 px-4 text-sm flex justify-between items-center;
+}
+
+.navbar {
+  @apply py-4 px-4 bg-gray-800;
+}
+
+.navbar a {
+  @apply text-white hover:text-[var(--color-accent)] transition-colors;
+}
+
+.footer {
+  @apply bg-gray-900 text-gray-400 py-12 text-sm;
+}
+
+.footer a {
+  @apply text-orange-400 hover:text-orange-300 transition;
+}
+
+/* === BUTTONS === */
+.btn {
+  @apply inline-block px-5 py-2.5 font-medium rounded transition-colors;
+}
+
+.btn-accent {
+  @apply bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)];
+}
+
+.btn-outline {
+  @apply border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700;
+}
+
+.btn-pill {
+  @apply px-4 py-1.5 rounded-full text-sm font-semibold;
+}
+
+.btn-small {
+  @apply text-sm px-4 py-2;
+}
+
+/* === TABS === */
+.tab {
+  @apply inline-block px-5 py-2.5 text-sm font-medium rounded-full cursor-pointer transition;
+}
+
+.tab-active {
+  @apply bg-[var(--color-accent)] text-white shadow;
+}
+
+.tab-inactive {
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+}
+
+/* === CARDS === */
+.card {
+  @apply rounded-lg bg-[var(--color-card)] dark:bg-[var(--color-card-dark)] shadow-sm p-6 hover:shadow-md transition-all;
+}
+
+.card-header {
+  @apply font-semibold text-lg mb-2;
+}
+
+.card-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* === FORMS === */
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)];
+}
+
+.textarea {
+  @apply input resize-y min-h-[100px];
+}
+
+/* === ICON BADGES === */
+.icon-badge {
+  @apply inline-flex items-center gap-2 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white px-3 py-1 rounded-full text-xs;
+}
+
+/* === UTILITIES === */
+.text-muted {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.text-accent {
+  @apply text-[var(--color-accent)];
+}
+
+.bg-accent {
+  @apply bg-[var(--color-accent)] text-white;
+}
+
+.bg-light {
+  @apply bg-gray-50;
+}
+
+.transition-fade {
+  @apply transition-opacity duration-300 ease-in-out;
+}
+
+/* === SCROLLBARS === */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
