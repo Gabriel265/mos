@@ -31,7 +31,7 @@ export default function AdminLogin() {
         placeholder="Password"
         className="w-full mb-2 p-2 border rounded"
       />
-      <button onClick={login} className="bg-primary text-white px-4 py-2 rounded w-full">
+      <button onClick={login} className="bg-primary text-cyan px-4 py-2 rounded w-full">
         Sign In
       </button>
       {error && <p className="text-red-500 mt-2">{error}</p>}
