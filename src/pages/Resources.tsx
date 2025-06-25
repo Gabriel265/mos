@@ -211,7 +211,7 @@ return (
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600">
-            Expert Tutoring
+            Cambridge Resources
           </span>
           <p className="text-sm lg:text-base text-gray-600 dark:text-gray-400">
           Comprehensive study resources available for all classes following the Cambridge curriculum.
