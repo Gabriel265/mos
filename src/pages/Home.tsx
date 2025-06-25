@@ -9,12 +9,19 @@ export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
       {/* Hero Section */}
-      <section id="hero"
-        className="relative min-h-screen sm:min-h-[32rem] md:h-[36rem] lg:h-[40rem] bg-cover bg-center bg-fixed flex items-center justify-center text-center px-4 sm:px-6 lg:px-12 overflow-hidden"
-        style={{
-          backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><pattern id="people" patternUnits="userSpaceOnUse" width="100" height="100"><rect fill="%23f3f4f6"/><circle cx="30" cy="30" r="15" fill="%236b7280"/><circle cx="70" cy="70" r="15" fill="%236b7280"/></pattern></defs><rect width="1200" height="400" fill="url(%23people)"/></svg>')`
-        }}
-      >
+      <section
+  id="hero"
+  className="relative min-h-screen sm:min-h-[32rem] md:h-[36rem] lg:h-[40rem] bg-cover bg-center bg-fixed flex items-center justify-center text-center px-4 sm:px-6 lg:px-12 overflow-hidden"
+  style={{
+    backgroundImage: `
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><pattern id="people" patternUnits="userSpaceOnUse" width="100" height="100"><rect fill="%23f3f4f6"/><circle cx="30" cy="30" r="15" fill="%236b7280"/><circle cx="70" cy="70" r="15" fill="%236b7280"/></pattern></defs><rect width="1200" height="400" fill="url(%23people)"/></svg>'),
+      url('/images/hero-background.jpg')     
+    `,
+    backgroundPosition: 'center, center',
+    backgroundSize: 'cover, auto',
+    backgroundRepeat: 'no-repeat, repeat',
+  }}
+>
         {/* Animated Overlay with Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50 z-0 animate-pulse-slow" />
         
