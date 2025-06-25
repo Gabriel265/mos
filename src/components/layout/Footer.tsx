@@ -114,11 +114,8 @@ export const Footer = () => {
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-700">
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 md:mb-0">
-              © {currentYear} Online Tutoring. All rights reserved.
+              © {currentYear} Helping Hand Tutor. All rights reserved.
             </p>
-            <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
-              <span>Made with ❤️ for students worldwide</span>
-            </div>
           </div>
         </div>
       </div>
