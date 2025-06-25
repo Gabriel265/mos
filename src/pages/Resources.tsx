@@ -197,9 +197,33 @@ export default function Resources() {
     }
   }
 
-  return (
-    <div ref={containerRef} className="flex flex-col lg:flex-row h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black relative overflow-hidden">
-      {/* Mobile Header */}
+  // Replace the entire return statement structure with this:
+
+return (
+  <div className="flex flex-col h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black relative overflow-hidden p-0">
+    
+    {/* Title and Tagline Section - Always visible at top */}
+    <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 py-4 px-6 lg:py-6 lg:px-8 flex-shrink-0">
+      <motion.h1
+          className=" text-center text-3xl md:text-5xl lg:text-6xl font-bold mb-4"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600">
+            Expert Tutoring
+          </span>
+          <p className="text-sm lg:text-base text-gray-600 dark:text-gray-400">
+          Comprehensive study resources available for all classes following the Cambridge curriculum.
+        </p>
+        </motion.h1>
+      
+    </div>
+
+    {/* Main Content Area */}
+    <div ref={containerRef} className="flex flex-col lg:flex-row flex-1 relative overflow-hidden">
+      
+      {/* Mobile Header - Now just for navigation */}
       <div className="lg:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4 z-30">
         <div className="flex items-center justify-between">
           <motion.button
@@ -224,6 +248,7 @@ export default function Resources() {
         </div>
       </div>
 
+      {/* Rest of your existing panels code goes here unchanged... */}
       {/* Desktop Subject Panel */}
       <motion.div 
         className={`transition-all duration-500 ease-in-out bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-2xl ${isLeftCollapsed ? 'w-0' : ''} hidden lg:block`} 
@@ -744,5 +769,7 @@ export default function Resources() {
         }
       `}</style>
     </div>
-  )
+
+    </div>
+)
 }

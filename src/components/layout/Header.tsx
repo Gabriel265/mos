@@ -60,7 +60,7 @@ export const Header = () => {
       <div className="bg-gray-900 text-white text-sm py-2 px-4 w-full fixed top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex gap-4">
-            <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> contact@mos.com</span>
+            <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> helpinghandtutor@mail.com</span>
             <span className="flex items-center gap-1"><Phone className="w-4 h-4" /> +265 999 000 111</span>
           </div>
           <div className="hidden sm:flex gap-4 items-center">
@@ -86,8 +86,8 @@ export const Header = () => {
           <Link to="/" className="flex items-center gap-2">
             <Scale className="w-6 h-6 text-orange-500" />
             <div>
-              <div className="text-lg font-bold leading-none">MOS</div>
-              <div className="text-xs text-gray-300 -mt-1">Malawi Online Services</div>
+              <div className="text-lg font-bold leading-none">HAT</div>
+              <div className="text-xs text-gray-300 -mt-1">Helping Hand Tutor</div>
             </div>
           </Link>
 

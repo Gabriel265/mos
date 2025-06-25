@@ -222,7 +222,7 @@ export default function Services() {
   }
 
   return (
-    <div id = "services" className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-orange-50/30 px-4 py-8 sm:py-12 lg:py-16">
+    <div id="services" className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-orange-50/30 px-4 pt-4 sm:pt-6 lg:pt-16 pb-2 sm:pb-3 lg:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div 

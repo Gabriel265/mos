@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex bg-lightBg dark:bg-darkBg text-lightText dark:text-darkText">
       {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-gray-900 shadow-md p-4 space-y-4">
-        <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
+        <h2 className="text-xl font-bold mb-4">Helping Hand Tutor</h2>
         {links.map(link => (
           <Link
             key={link.path}

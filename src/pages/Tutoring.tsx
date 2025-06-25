@@ -134,31 +134,13 @@ export default function Tutoring() {
 
   return (
     <motion.section 
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="max-w-screen-2xl mx-auto px-4 py-6 md:py-10"
-    >
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+  className="max-w-screen-2xl mx-auto px-4 pt-0 pb-2 md:pt-1 md:pb-0"
+>
       {/* Header */}
-      <motion.div variants={itemVariants} className="text-center mb-8 md:mb-12">
-        <motion.h1
-          className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600">
-            Expert Tutoring
-          </span>
-        </motion.h1>
-        
-        <motion.div
-          className="w-32 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600"
-          initial={{ width: 0 }}
-          animate={{ width: 128 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        />
-      </motion.div>
+      
 
       {/* Hero Banner */}
       <motion.div 
@@ -167,15 +149,19 @@ export default function Tutoring() {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
         <div className="relative z-10">
-          <motion.h2 
-            className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-3 md:mb-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            Private Tutoring Excellence
-          </motion.h2>
-          <motion.p 
+          <motion.h1
+          className=" text-center text-3xl md:text-5xl lg:text-6xl font-bold mb-4"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600">
+            Expert Tutoring
+          </span>
+        </motion.h1>
+
+
+            <motion.p 
             className="text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-sm md:text-base mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -238,14 +224,14 @@ export default function Tutoring() {
         variants={itemVariants}
         className="flex flex-col items-center mb-8 md:mb-12"
       >
-        <motion.h3 
+        <motion.h5 
           className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           Meet Our Tutors
-        </motion.h3>
+        </motion.h5>
         <motion.div 
           className="w-24 h-1 rounded-full bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600"
           initial={{ width: 0 }}
