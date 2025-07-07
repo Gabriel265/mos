@@ -84,9 +84,7 @@ export default function Home() {
       <section id="tutoring" className="section bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Tutoring />
       </section>
-      <section id="resources" className="section bg-white dark:bg-gray-950 transition-colors duration-300">
-        <Resources />
-      </section>
+      
       <section id="contact" className="section bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Contact />
       </section>

@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
-import { ChevronUp, ChevronDown, Volume2, Filter, Star, MapPin, Clock, Users } from 'lucide-react'
+import { ChevronUp, ChevronDown, Volume2, Filter, Star, LibraryBig, MapPin, Clock, Users } from 'lucide-react'
 
 interface Tutor {
   id: string
@@ -186,6 +186,66 @@ export default function Tutoring() {
               In-Person Available
             </span>
           </motion.div>
+
+             {/* Additional Features Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+      >
+        {[
+          {
+            icon: <Clock className="w-8 h-8" />,
+            title: "Flexible Scheduling",
+            description: "Book sessions that fit your schedule, available 7 days a week",
+            color: "from-green-500 to-emerald-600"
+          },
+          {
+            icon: <Users className="w-8 h-8" />,
+            title: "Expert Tutors",
+            description: "Learn from qualified professionals with years of teaching experience",
+            color: "from-blue-500 to-cyan-600"
+          },
+          {
+            icon: <LibraryBig className="w-8 h-8" />,
+            title: "Cambridge Resources",
+            description: "Comprehensive study resources available for all classes following the Cambridge curriculum.",
+            color: "from-purple-500 to-pink-600"
+          }
+        ].map((feature, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            whileHover={{ y: -10, scale: 1.02 }}
+            className="relative p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden group"
+          >
+            <motion.div
+              className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+            />
+            <div className="relative z-10">
+              <motion.div
+                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} text-white mb-4 shadow-lg`}
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
+                {feature.icon}
+              </motion.div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+
         </div>
         
         {/* Floating Elements */}
@@ -659,64 +719,7 @@ export default function Tutoring() {
         )}
       </motion.div>
 
-      {/* Additional Features Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-      >
-        {[
-          {
-            icon: <Clock className="w-8 h-8" />,
-            title: "Flexible Scheduling",
-            description: "Book sessions that fit your schedule, available 7 days a week",
-            color: "from-green-500 to-emerald-600"
-          },
-          {
-            icon: <Users className="w-8 h-8" />,
-            title: "Expert Tutors",
-            description: "Learn from qualified professionals with years of teaching experience",
-            color: "from-blue-500 to-cyan-600"
-          },
-          {
-            icon: <Star className="w-8 h-8" />,
-            title: "Proven Results",
-            description: "Join thousands of students who've achieved their academic goals",
-            color: "from-purple-500 to-pink-600"
-          }
-        ].map((feature, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            whileHover={{ y: -10, scale: 1.02 }}
-            className="relative p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden group"
-          >
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-            />
-            <div className="relative z-10">
-              <motion.div
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} text-white mb-4 shadow-lg`}
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                {feature.icon}
-              </motion.div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+     
 
       
     </motion.section>

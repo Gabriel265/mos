@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils'
 
 const links = [
   { path: '/admin/services', label: 'Services' },
-  { path: '/admin/resources', label: 'Resources' },
   { path: '/admin/tutors', label: 'Tutors' },
   { path: '/admin/subjects', label: 'Subjects' },
   { path: '/admin/contact', label: 'Contact' },
