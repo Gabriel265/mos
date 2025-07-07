@@ -1,285 +1,235 @@
 import { useState } from 'react'
-import { MapPin, Send, Facebook, Twitter, Instagram, Youtube, Phone, Mail } from 'lucide-react'
+import { MapPin, Send, Facebook, Twitter, Instagram, Youtube, Phone, Mail, Clock, CheckCircle, User, AtSign, MessageCircle } from 'lucide-react'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
-
-// Mock functions to replace external dependencies
-const supabase = {
-  from: () => ({
-    insert: async () => ({ error: null })
-  })
-}
-const toast = {
-  error: (msg) => console.log('Error:', msg),
-  success: (msg) => console.log('Success:', msg)
-}
-const emailjs = {
-  send: async () => Promise.resolve()
-}
+import emailjs from '@emailjs/browser'
+import { supabase } from '@/lib/supabaseClient'
+import { toast } from 'sonner'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '', scheduled: false })
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [focusedField, setFocusedField] = useState('')
 
+  const resetForm = () => setForm({ name: '', email: '', message: '' })
+
   const handleSubmit = async (isScheduled = false) => {
-    if (!form.name || !form.email || !form.message) {
+    const { name, email, message } = form
+    if (!name || !email || !message) {
       toast.error('Please fill in all fields')
       return
     }
 
-    const payload = { ...form, scheduled: isScheduled }
-
     setLoading(true)
-    const { error } = await supabase.from('contact_messages').insert(payload)
-    setLoading(false)
-
-    if (error) return toast.error(error.message)
+    const { error } = await supabase.from('contact_messages').insert([
+      { name, email, message, scheduled: isScheduled }
+    ])
+    if (error) {
+      toast.error(error.message)
+      setLoading(false)
+      return
+    }
 
     try {
-      await emailjs.send('service', 'template', {
-        name: form.name,
-        email: form.email,
-        message: form.message
-      })
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        isScheduled
+          ? import.meta.env.VITE_EMAILJS_TEMPLATE_SCHEDULED
+          : import.meta.env.VITE_EMAILJS_TEMPLATE_GENERAL,
+        { name, email, message },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
       toast.success('Message sent!')
-      setForm({ name: '', email: '', message: '', scheduled: false })
-    } catch (e) {
-      toast.error('Failed to send email')
-      console.error(e)
+      resetForm()
+    } catch (err) {
+      toast.error('Email failed to send')
+      console.error(err)
     }
+    setLoading(false)
   }
 
+  const contactInfo = [
+    { icon: MapPin, text: 'Lilongwe, Malawi', color: 'text-blue-400' },
+    { icon: Phone, text: '+265 900 900 90 90', color: 'text-green-400' },
+    { icon: Mail, text: 'hello@name.com', color: 'text-pink-400' }
+  ]
+
+  const socialIcons = [
+    { icon: Facebook, color: 'hover:text-blue-400' },
+    { icon: Twitter, color: 'hover:text-sky-400' },
+    { icon: Instagram, color: 'hover:text-pink-400' },
+    { icon: Youtube, color: 'hover:text-red-400' }
+  ]
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-3 sm:p-6">
-      <div className="w-full max-w-7xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
-        <div className="flex flex-col lg:flex-row min-h-[600px]">
-          {/* Left Side - Map and Contact Info */}
-          <div className="lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
-            {/* Animated Background Grid */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="grid grid-cols-12 grid-rows-8 h-full w-full">
-                {Array.from({ length: 96 }).map((_, i) => (
-                  <div 
-                    key={i} 
-                    className="border border-white/20 animate-pulse"
-                    style={{ animationDelay: `${i * 0.1}s` }}
-                  />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-3 sm:p-4 md:p-6">
+      <div className="w-full max-w-7xl bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-3xl border border-white/20">
+        <div className="flex flex-col lg:flex-row min-h-[600px] md:min-h-[650px]">
+          {/* Left Section - Contact Info */}
+          <div className="lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden p-6 sm:p-8 md:p-10 flex flex-col justify-center">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-green-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <div className="mb-8">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                  Get In <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">Touch</span>
+                </h1>
+                <p className="text-gray-300 text-base sm:text-lg mb-2">We'd love to hear from you.</p>
+                <p className="text-gray-400 text-sm sm:text-base">Reach out today and let's start a conversation.</p>
+              </div>
+
+              <div className="space-y-6 mb-10">
+                {contactInfo.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-4 group cursor-pointer">
+                    <div className="p-3 rounded-full bg-white/10 backdrop-blur-sm group-hover:bg-white/20 transition-all duration-300">
+                      <item.icon className={`w-5 h-5 ${item.color}`} />
+                    </div>
+                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base">
+                      {item.text}
+                    </span>
+                  </div>
                 ))}
               </div>
-            </div>
 
-            {/* Floating Geometric Shapes */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-10 left-10 w-20 h-20 bg-blue-500/20 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
-              <div className="absolute top-1/3 right-10 w-16 h-16 bg-purple-500/20 rotate-45 animate-pulse" style={{ animationDuration: '2s' }} />
-              <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-green-500/20 rounded-full animate-ping" style={{ animationDuration: '4s' }} />
-            </div>
-
-            {/* Central Map Pin */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-              <div className="relative group">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl animate-bounce group-hover:scale-110 transition-transform duration-300">
-                  <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-lg" />
-                </div>
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rotate-45 shadow-lg" />
-                
-                {/* Ripple Effect */}
-                <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-ping" />
-                <div className="absolute inset-0 rounded-full border-4 border-white/20 animate-ping" style={{ animationDelay: '0.5s' }} />
-              </div>
-            </div>
-
-            <div className="relative z-10 p-6 sm:p-8 lg:p-12 h-full flex flex-col justify-between">
-              <div className="space-y-4 sm:space-y-6">
-                <div className="transform transition-all duration-700 hover:translate-x-2">
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    Contact us
-                  </h1>
-                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg">Get in touch with our team</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 sm:gap-8">
-                  <div className="group transform transition-all duration-500 hover:translate-x-2">
-                    <h3 className="text-xs sm:text-sm font-semibold text-gray-400 uppercase mb-3 flex items-center group-hover:text-blue-400 transition-colors">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      Our Address
-                    </h3>
-                    <div className="text-white space-y-1 text-sm sm:text-base">
-                      <p className="hover:text-blue-300 transition-colors cursor-pointer">Lilongwe</p>
-                      <p className="hover:text-blue-300 transition-colors cursor-pointer">Malawi</p>
-                      
-                    </div>
+              <div className="flex space-x-4">
+                {socialIcons.map((social, index) => (
+                  <div key={index} className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 cursor-pointer transition-all duration-300 group">
+                    <social.icon className={`w-5 h-5 text-gray-300 ${social.color} transition-colors duration-300`} />
                   </div>
-
-                  <div className="group transform transition-all duration-500 hover:translate-x-2">
-                    <h3 className="text-xs sm:text-sm font-semibold text-gray-400 uppercase mb-3 flex items-center group-hover:text-green-400 transition-colors">
-                      <Phone className="w-4 h-4 mr-2" />
-                      Our Contacts
-                    </h3>
-                    <div className="text-white space-y-2 text-sm sm:text-base">
-                      <p className="flex items-center hover:text-green-300 transition-colors cursor-pointer">
-                        <Mail className="w-4 h-4 mr-2" />
-                        hello@name.com
-                      </p>
-                      <p className="flex items-center hover:text-green-300 transition-colors cursor-pointer">
-                        <Phone className="w-4 h-4 mr-2" />
-                        +7 900 900 90 90
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-                <div className="flex space-x-3 sm:space-x-4">
-                  {[
-                    { Icon: Facebook, color: 'hover:bg-blue-600' },
-                    { Icon: Twitter, color: 'hover:bg-sky-500' },
-                    { Icon: Instagram, color: 'hover:bg-pink-600' },
-                    { Icon: Youtube, color: 'hover:bg-red-600' }
-                  ].map(({ Icon, color }, idx) => (
-                    <button 
-                      key={idx} 
-                      className={`w-10 h-10 sm:w-12 sm:h-12 bg-gray-800/80 backdrop-blur-sm rounded-full flex items-center justify-center ${color} transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:-translate-y-1`}
-                    >
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </button>
-                  ))}
-                </div>
-                <span className="text-gray-400 text-xs sm:text-sm font-medium tracking-wider">follow us</span>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right Side - Contact Form */}
-          <div className="lg:w-1/2 p-6 sm:p-8 lg:p-12 flex items-center">
-            <div className="w-full max-w-md mx-auto space-y-6 sm:space-y-8">
-              <div className="mb-6 sm:mb-8 transform transition-all duration-700 hover:translate-x-1">
-                <h2 className="text-sm font-semibold text-gray-400 uppercase mb-4 tracking-wider">Reach Out</h2>
+          {/* Right Section - Contact Form */}
+          <div className="lg:w-1/2 p-6 sm:p-8 md:p-10 flex items-center">
+            <div className="w-full space-y-6">
+              <div className="mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Send us a message</h2>
+                <p className="text-gray-600 text-sm sm:text-base">Fill out the form below and we'll get back to you soon.</p>
               </div>
 
-              {[
-                { name: 'name', type: 'text', placeholder: 'Name' },
-                { name: 'email', type: 'email', placeholder: 'E-mail' }
-              ].map(({ name, type, placeholder }) => (
-                <div key={name} className="relative group">
-                  <input
-                    type={type}
-                    name={name}
-                    placeholder={placeholder}
-                    value={form[name]}
-                    onChange={(e) => setForm(f => ({ ...f, [name]: e.target.value }))}
-                    onFocus={() => setFocusedField(name)}
-                    onBlur={() => setFocusedField('')}
-                    className={`w-full px-0 py-4 text-gray-900 placeholder-gray-500 border-0 border-b-2 focus:outline-none bg-transparent transition-all duration-300 ${
-                      focusedField === name 
-                        ? 'border-blue-500 transform scale-105' 
-                        : form[name] 
-                          ? 'border-green-400' 
-                          : 'border-gray-200 group-hover:border-gray-400'
-                    }`}
-                    required
-                  />
-                  <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300 ${
-                    focusedField === name ? 'w-full' : 'w-0'
-                  }`} />
+              <div className="space-y-6">
+                {/* Name Field */}
+                <div className="relative">
+                  <div className="relative">
+                    <User className={`absolute left-0 top-3 w-5 h-5 transition-colors duration-300 ${
+                      focusedField === 'name' ? 'text-blue-500' : 'text-gray-400'
+                    }`} />
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      value={form.name}
+                      onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                      onFocus={() => setFocusedField('name')}
+                      onBlur={() => setFocusedField('')}
+                      className="w-full border-b-2 border-gray-200 focus:outline-none py-3 pl-8 pr-4 placeholder-gray-500 bg-transparent transition-all duration-300 focus:border-blue-500 text-gray-900"
+                    />
+                  </div>
+                  <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${
+                    focusedField === 'name' ? 'w-full' : 'w-0'
+                  }`}></div>
                 </div>
-              ))}
 
-              <div className="relative group">
-                <textarea
-                  name="message"
-                  placeholder="Message"
-                  rows={4}
-                  value={form.message}
-                  onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
-                  onFocus={() => setFocusedField('message')}
-                  onBlur={() => setFocusedField('')}
-                  className={`w-full px-0 py-4 text-gray-900 placeholder-gray-500 border-0 border-b-2 focus:outline-none bg-transparent resize-none transition-all duration-300 ${
-                    focusedField === 'message' 
-                      ? 'border-blue-500 transform scale-105' 
-                      : form.message 
-                        ? 'border-green-400' 
-                        : 'border-gray-200 group-hover:border-gray-400'
-                  }`}
-                  required
-                />
-                <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300 ${
-                  focusedField === 'message' ? 'w-full' : 'w-0'
-                }`} />
+                {/* Email Field */}
+                <div className="relative">
+                  <div className="relative">
+                    <AtSign className={`absolute left-0 top-3 w-5 h-5 transition-colors duration-300 ${
+                      focusedField === 'email' ? 'text-blue-500' : 'text-gray-400'
+                    }`} />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      value={form.email}
+                      onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField('')}
+                      className="w-full border-b-2 border-gray-200 focus:outline-none py-3 pl-8 pr-4 placeholder-gray-500 bg-transparent transition-all duration-300 focus:border-blue-500 text-gray-900"
+                    />
+                  </div>
+                  <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${
+                    focusedField === 'email' ? 'w-full' : 'w-0'
+                  }`}></div>
+                </div>
+
+                {/* Message Field */}
+                <div className="relative">
+                  <div className="relative">
+                    <MessageCircle className={`absolute left-0 top-3 w-5 h-5 transition-colors duration-300 ${
+                      focusedField === 'message' ? 'text-blue-500' : 'text-gray-400'
+                    }`} />
+                    <textarea
+                      name="message"
+                      placeholder="Your Message"
+                      rows={4}
+                      value={form.message}
+                      onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
+                      onFocus={() => setFocusedField('message')}
+                      onBlur={() => setFocusedField('')}
+                      className="w-full border-b-2 border-gray-200 focus:outline-none py-3 pl-8 pr-4 placeholder-gray-500 bg-transparent transition-all duration-300 focus:border-blue-500 resize-none text-gray-900"
+                    />
+                  </div>
+                  <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${
+                    focusedField === 'message' ? 'w-full' : 'w-0'
+                  }`}></div>
+                </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between pt-6 space-y-4 sm:space-y-0">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 group"
-                    >
-                      <div className="p-2 rounded-full bg-gray-100 group-hover:bg-blue-100 transition-colors">
-                        <Send className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                      </div>
-                      <span className="text-sm font-medium">Schedule Call</span>
+                    <button className="group flex items-center space-x-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-300">
+                      <Clock className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                      <span className="relative">
+                        Schedule a Call
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                      </span>
                     </button>
                   </DialogTrigger>
-                  <DialogContent
-  className="w-full max-w-3xl bg-white p-0 overflow-hidden rounded-2xl sm:rounded-xl"
-  style={{
-    height: 'min(90vh, 700px)',
-    padding: '0',
-    animation: 'slideUp 0.4s ease-out',
-    margin: '0 auto',
-    borderRadius: '1.25rem',
-  }}
->
-  <div className="relative h-[75vh] sm:h-[600px]">
-    <iframe
-      src="https://calendly.com/gabrielkadiwa/30min"
-      title="Schedule with Gabriel"
-      allow="fullscreen; camera; microphone"
-      className="absolute inset-0 w-full h-full border-0 rounded-2xl"
-    />
-  </div>
-  <div className="p-4 sm:p-6">
-    <button
-      type="button"
-      onClick={() => handleSubmit(true)}
-      className="w-full px-6 py-3 bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full font-medium hover:from-gray-800 hover:to-gray-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-    >
-      Schedule Call
-    </button>
-  </div>
-
-  <style>{`
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-  `}</style>
-</DialogContent>
-
+                  <DialogContent className="w-full max-w-2xl p-0 overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
+                    <div className="relative h-[70vh]">
+                      <iframe
+                        src="https://calendly.com/gabrielkadiwa/30min"
+                        title="Schedule with Gabriel"
+                        allow="camera; microphone"
+                        className="absolute inset-0 w-full h-full border-0"
+                      />
+                    </div>
+                    <div className="p-4 border-t border-gray-100">
+                      <button
+                        type="button"
+                        onClick={() => handleSubmit(true)}
+                        className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+                      >
+                        <CheckCircle className="w-5 h-5" />
+                        <span>Confirm Schedule</span>
+                      </button>
+                    </div>
+                  </DialogContent>
                 </Dialog>
 
                 <button
-                  type="submit"
                   disabled={loading}
                   onClick={() => handleSubmit(false)}
-                  className={`px-6 sm:px-8 py-3 bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-full font-medium transition-all duration-300 transform ${
+                  className={`group px-6 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2 ${
                     loading 
-                      ? 'opacity-50 cursor-not-allowed scale-95' 
-                      : 'hover:from-gray-800 hover:to-gray-600 hover:shadow-xl hover:scale-105 hover:-translate-y-1'
+                      ? 'bg-gray-400 text-white cursor-not-allowed' 
+                      : 'bg-gradient-to-r from-gray-900 to-gray-800 text-white hover:from-gray-800 hover:to-gray-900'
                   }`}
                 >
                   {loading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span className="text-sm sm:text-base">Sending...</span>
-                    </div>
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <span>Sending...</span>
+                    </>
                   ) : (
-                    <div className="flex items-center space-x-2 group">
-                      <span className="text-sm sm:text-base">Send Message</span>
-                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    <>
+                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      <span>Send Message</span>
+                    </>
                   )}
                 </button>
               </div>
