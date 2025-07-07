@@ -532,11 +532,12 @@ export default function Tutoring() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <img 
-                    src={currentProfile.profile_url || '/api/placeholder/200/300'} 
+                    src={tutor.profile_url || '/api/placeholder/200/300'} 
                     onError={(e) => e.currentTarget.src = '/api/placeholder/200/300'}
-                    alt={currentProfile.name}
+                    alt={tutor.name}
                     className="w-full h-full object-cover" 
                   />
+
 
                   {idx === currentIndex && (
                     <motion.div
