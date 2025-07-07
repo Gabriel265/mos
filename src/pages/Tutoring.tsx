@@ -34,27 +34,58 @@ export default function Tutoring() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data: tutorsData } = await supabase
-        .from('tutors')
-        .select(`
-          id, name, bio, mode, profile_url,
-          tutor_subjects (subject_id, subjects(name))
-        `)
-        .eq('archived', false)
+  // Fetch tutors
+  const { data: tutorsData, error: tutorError } = await supabase
+    .from('tutors')
+    .select('*')
+    .eq('archived', false);
 
-      const formatted = (tutorsData || []).map(t => ({
-        id: t.id,
-        name: t.name,
-        bio: t.bio,
-        mode: t.mode,
-        profile_url: t.profile_url,
-        subjects: t.tutor_subjects?.map(ts => ts.subjects?.name).filter(Boolean) || []
-      }))
+  if (tutorError) {
+    console.error('Error fetching tutors:', tutorError.message);
+    return;
+  }
 
-      const { data: subs } = await supabase.from('subjects').select('name')
-      setTutors(formatted)
-      setSubjects(subs?.map(s => s.name) || [])
-    }
+  // Fetch subject links with subjects joined
+  const { data: subjectLinks, error: subjectError } = await supabase
+    .from('tutor_subjects')
+    .select('tutor_id, subjects(name)');
+
+  if (subjectError) {
+    console.error('Error fetching subjects:', subjectError.message);
+    return;
+  }
+
+  // Combine tutors with their subject names
+  const tutorsWithSubjects = tutorsData.map((tutor) => {
+    const subjects = subjectLinks
+      .filter((link) => link.tutor_id === tutor.id)
+      .map((link) => link.subjects?.name)
+      .filter(Boolean);
+
+    return {
+      id: tutor.id,
+      name: tutor.name,
+      bio: tutor.bio,
+      mode: tutor.mode,
+      profile_url: tutor.profile_url ?? null, // Already a public URL
+      subjects,
+    };
+  });
+
+  // Fetch all subject names for filter buttons
+  const { data: allSubjects, error: allSubError } = await supabase
+    .from('subjects')
+    .select('name');
+
+  if (allSubError) {
+    console.error('Error fetching all subjects:', allSubError.message);
+  }
+
+  setTutors(tutorsWithSubjects);
+  setSubjects(allSubjects?.map((s) => s.name) || []);
+}
+
+
 
     fetchData()
   }, [])
@@ -369,10 +400,12 @@ export default function Tutoring() {
                       transition={{ duration: 0.3 }}
                     >
                       <img 
-                        src={currentProfile.profile_url || '/api/placeholder/200/300'} 
-                        alt={currentProfile.name} 
-                        className="w-full h-full object-cover" 
-                      />
+                      src={currentProfile.profile_url || '/api/placeholder/200/300'} 
+                      onError={(e) => e.currentTarget.src = '/api/placeholder/200/300'}
+                      alt={currentProfile.name}
+                      className="w-full h-full object-cover" 
+                    />
+
                     </motion.div>
                     <motion.div
                       className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
@@ -499,10 +532,12 @@ export default function Tutoring() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <img 
-                    src={tutor.profile_url || '/api/placeholder/100/120'} 
-                    alt={tutor.name} 
+                    src={currentProfile.profile_url || '/api/placeholder/200/300'} 
+                    onError={(e) => e.currentTarget.src = '/api/placeholder/200/300'}
+                    alt={currentProfile.name}
                     className="w-full h-full object-cover" 
                   />
+
                   {idx === currentIndex && (
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"
