@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { ChevronUp, ChevronDown, Volume2, Filter, Star, LibraryBig, MapPin, Clock, Users } from 'lucide-react'
+import CalendlyDialog from '@/components/shared/CalendlyDialog'
+
 
 interface Tutor {
   id: string
@@ -438,12 +440,14 @@ export default function Tutoring() {
                       "{currentProfile.bio}"
                     </blockquote>
                     
-                    <Button 
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg"
-                      onClick={() => navigate('/contact')}
-                    >
-                      Start Learning
-                    </Button>
+                  
+                    <CalendlyDialog
+                      trigger={
+                        <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg">
+                          Schedule a Lesson
+                        </button>
+                      }
+                    />
                   </div>
                 </motion.div>
               )}

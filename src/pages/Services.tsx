@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Wallet, Package, Users, Settings, Zap, Shield, Globe, Star, X, ChevronRight, ArrowRight, Sparkles } from 'lucide-react'
+import CalendlyDialog from '@/components/shared/CalendlyDialog'
 
 const categoryIcons: { [key: string]: any } = {
   wallet: Wallet,
@@ -363,13 +364,13 @@ export default function Services() {
                     <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
                   </motion.button>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link
-                      to="/contact"
-                      className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Schedule
-                    </Link>
+                    <CalendlyDialog
+                      trigger={
+                        <button className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                          Schedule Consultation
+                        </button>
+                      }
+                    />
                   </motion.div>
                 </div>
               </motion.div>
