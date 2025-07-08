@@ -12,6 +12,7 @@ import TutoringPage from '@/pages/Tutoring'
 import ContactPage from '@/pages/Contact'
 
 // Admin pages
+import PrivateRoute from '@/components/auth/PrivateRoute'
 import AdminLogin from '@/pages/admin/Login'
 import ServicesAdmin from '@/pages/admin/ServicesAdmin'
 import ResourcesAdmin from '@/pages/admin/ResourcesAdmin'
@@ -41,11 +42,15 @@ function AppRoutes() {
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/services" element={<ServicesAdmin />} />
-          <Route path="/admin/resources" element={<ResourcesAdmin />} />
-          <Route path="/admin/tutors" element={<TutorsAdmin />} />
-          <Route path="/admin/subjects" element={<SubjectsAdmin />} />
-          <Route path="/admin/contact" element={<ContactAdmin />} />
+
+          {/* Protected Routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin/services" element={<ServicesAdmin />} />
+            <Route path="/admin/resources" element={<ResourcesAdmin />} />
+            <Route path="/admin/tutors" element={<TutorsAdmin />} />
+            <Route path="/admin/subjects" element={<SubjectsAdmin />} />
+            <Route path="/admin/contact" element={<ContactAdmin />} />
+          </Route>
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}
