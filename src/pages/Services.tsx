@@ -366,9 +366,9 @@ export default function Services() {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <CalendlyDialog
                       trigger={
-                        <button className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                          Schedule Consultation
-                        </button>
+                        <button className="px-2 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full text-white text-xs sm:text-sm font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+  Schedule Consultation
+</button>
                       }
                     />
                   </motion.div>
