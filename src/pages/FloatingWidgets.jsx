@@ -11,16 +11,13 @@ export default function FloatingWidgets() {
   const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
-    const hideState = localStorage.getItem('widgetsHidden')
-    if (hideState === 'true') setVisible(false)
+  setVisible(true)
+  setTimeout(() => {
+    setChatOpen(true)
+    setMessages([{ from: 'bot', text: 'Hi! How can I help you today?' }])
+  }, 1000)
+}, [])
 
-    setTimeout(() => {
-      if (!hideState) {
-        setChatOpen(true)
-        setMessages([{ from: 'bot', text: 'Hi! How can I help you today?' }])
-      }
-    }, 1000)
-  }, [])
 
   const hideWidgets = () => {
     setVisible(false)
