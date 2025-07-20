@@ -5,6 +5,7 @@ import Tutoring from './Tutoring'
 import Resources from './Resources'
 import Contact from './Contact'
 import FloatingWidgets from './FloatingWidgets'
+import ITServices from './ITServices'
 
 
 
@@ -78,6 +79,9 @@ export default function Home() {
       
       <section id="tutoring" className="section bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Tutoring />
+      </section>
+      <section id="contact" className="section bg-gray-100 transition-colors duration-300">
+        <ITServices />
       </section>
       <section id="contact" className="section bg-gray-100 transition-colors duration-300">
         <Contact />
