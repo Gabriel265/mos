@@ -26,8 +26,8 @@ export default function CalendlyDialog({
             </div>
           )}
           <iframe
-            src="https://calendly.com/gabrielkadiwa/30min"
-            title="Schedule with Gabriel"
+            src="https://calendly.com/helpinghandtutor3/30min?embed_domain=malawionlineservises.vercel.app&embed_type=Inline"
+            title="Schedule Helping Hand Tutor"
             allow="camera; microphone"
             onLoad={handleIframeLoad}
             className="w-full h-full border-0"
@@ -36,6 +36,7 @@ export default function CalendlyDialog({
               transition: 'opacity 0.3s ease-in-out',
             }}
           />
+
         </div>
       </DialogContent>
     </Dialog>

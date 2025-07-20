@@ -51,8 +51,8 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: MapPin, text: 'Lilongwe, Malawi', color: 'text-blue-400' },
-    { icon: Phone, text: '+265 900 900 90 90', color: 'text-green-400' },
-    { icon: Mail, text: 'hello@name.com', color: 'text-pink-400' }
+    { icon: Phone, text: '+44 7301 096908', color: 'text-green-400' },
+    { icon: Mail, text: 'helpinhandtutor3@gmail.com', color: 'text-pink-400' }
   ]
 
   const socialIcons = [

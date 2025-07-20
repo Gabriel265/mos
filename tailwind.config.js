@@ -97,7 +97,10 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-4px)' }
         }
-      }
+      },
+      clipPath: {
+    'hero': 'polygon(0 0, 90% 0, 60% 100%, 0% 100%)',
+  }
     }
   },
   plugins: [require('tailwindcss-animate')]

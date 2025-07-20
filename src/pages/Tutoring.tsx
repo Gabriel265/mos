@@ -1,767 +1,316 @@
-import { useEffect, useState, useRef } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import { useNavigate } from 'react-router-dom'
-import { ChevronUp, ChevronDown, Volume2, Filter, Star, LibraryBig, MapPin, Clock, Users } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Phone, UserCheck, Star, ArrowRight, BookOpen, Award, Clock, Users, CheckCircle, MessageCircle, Mail } from 'lucide-react'
 import CalendlyDialog from '@/components/shared/CalendlyDialog'
 
-
-interface Tutor {
-  id: string
-  name: string
-  bio: string
-  mode: 'Online' | 'In-person' | 'Both'
-  subjects: string[]
-  profile_url?: string
-}
-
-export default function Tutoring() {
-  const [tutors, setTutors] = useState<Tutor[]>([])
-  const [subjects, setSubjects] = useState<string[]>([])
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [showFilters, setShowFilters] = useState(false)
-  const carouselRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
+const TutoringServiceSection: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeTab, setActiveTab] = useState('online')
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+    setIsVisible(true)
   }, [])
 
-  useEffect(() => {
-    async function fetchData() {
-  // Fetch tutors
-  const { data: tutorsData, error: tutorError } = await supabase
-    .from('tutors')
-    .select('*')
-    .eq('archived', false);
+  const subjects = [
+    { name: 'Maths' },
+    { name: 'Physics' },
+    { name: 'Chemistry' },
+    { name: 'Biology' },
+    { name: 'English' },
+    { name: 'History' },
+    { name: 'Geography' },
+    { name: 'Economics' },
+    { name: 'Business Studies' },
+    { name: 'Computer Science' },
+    { name: 'French' },
+  ]
 
-  if (tutorError) {
-    console.error('Error fetching tutors:', tutorError.message);
-    return;
-  }
-
-  // Fetch subject links with subjects joined
-  const { data: subjectLinks, error: subjectError } = await supabase
-    .from('tutor_subjects')
-    .select('tutor_id, subjects(name)');
-
-  if (subjectError) {
-    console.error('Error fetching subjects:', subjectError.message);
-    return;
-  }
-
-  // Combine tutors with their subject names
-  const tutorsWithSubjects = tutorsData.map((tutor) => {
-    const subjects = subjectLinks
-      .filter((link) => link.tutor_id === tutor.id)
-      .map((link) => link.subjects?.name)
-      .filter(Boolean);
-
-    return {
-      id: tutor.id,
-      name: tutor.name,
-      bio: tutor.bio,
-      mode: tutor.mode,
-      profile_url: tutor.profile_url ?? null, // Already a public URL
-      subjects,
-    };
-  });
-
-  // Fetch all subject names for filter buttons
-  const { data: allSubjects, error: allSubError } = await supabase
-    .from('subjects')
-    .select('name');
-
-  if (allSubError) {
-    console.error('Error fetching all subjects:', allSubError.message);
-  }
-
-  setTutors(tutorsWithSubjects);
-  setSubjects(allSubjects?.map((s) => s.name) || []);
-}
-
-
-
-    fetchData()
-  }, [])
-
-  const filtered = selectedSubject
-    ? tutors.filter(t => t.subjects.includes(selectedSubject))
-    : tutors
-
-  const currentProfile = filtered[currentIndex] || null
-
-  const changeIndex = (dir: 'up' | 'down' | number) => {
-    if (isAnimating || filtered.length === 0) return
-    setIsAnimating(true)
-    let next = dir === 'up'
-      ? (currentIndex > 0 ? currentIndex - 1 : filtered.length - 1)
-      : dir === 'down'
-        ? (currentIndex < filtered.length - 1 ? currentIndex + 1 : 0)
-        : dir
-
-    setCurrentIndex(next)
-    setTimeout(() => setIsAnimating(false), 500)
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }
-
-  const profileVariants = {
-    hidden: { opacity: 0, scale: 0.9, rotateY: 90 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      rotateY: 0,
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      scale: 0.9, 
-      rotateY: -90,
-      transition: { duration: 0.3 }
-    }
-  }
-
-  const getModeIcon = (mode: string) => {
-    switch (mode) {
-      case 'Online': return <Clock className="w-4 h-4" />
-      case 'In-person': return <MapPin className="w-4 h-4" />
-      case 'Both': return <Users className="w-4 h-4" />
-      default: return null
-    }
-  }
-
-  const getModeColor = (mode: string) => {
-    switch (mode) {
-      case 'Online': return 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
-      case 'In-person': return 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-      case 'Both': return 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
-      default: return 'bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300'
-    }
+  const handleContactClick = () => {
+    window.location.href = 'tel:+918929483938'
   }
 
   return (
-    <motion.section 
-  variants={containerVariants}
-  initial="hidden"
-  animate="visible"
-  className="max-w-screen-2xl mx-auto px-4 pt-0 pb-2 md:pt-1 md:pb-0"
->
-      {/* Header */}
-      
+    <>
+      {/* SEO Meta Tags (would be in document head in real implementation) */}
+      <div style={{ display: 'none' }}>
+        <meta name="description" content="Expert private tutoring in all Cambridge curriculum subjects. Online & in-person sessions from secondary to university level. Free demo class available." />
+        <meta name="keywords" content="private tutoring, online tutoring, cambridge curriculum, mathematics tutor, physics tutor, chemistry tutor, english tutor, exam preparation" />
+        <meta property="og:title" content="Private Tutoring Services - Expert Cambridge Curriculum Tutoring" />
+        <meta property="og:description" content="Get expert tutoring in all Cambridge subjects. Free demo class available. Call +91-8929483938" />
+        <title>Private Tutoring Services - Expert Cambridge Curriculum Tutor</title>
+      </div>
 
-      {/* Hero Banner */}
-      <motion.div 
-        variants={itemVariants}
-        className="relative overflow-hidden bg-gradient-to-br from-purple-100 via-blue-50 to-green-100 dark:from-purple-900/30 dark:via-blue-900/30 dark:to-green-900/30 rounded-3xl p-6 md:p-8 mb-8 md:mb-12 shadow-xl"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
-        <div className="relative z-10">
-          <motion.h1
-          className=" text-center text-3xl md:text-5xl lg:text-6xl font-bold mb-4"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600">
-            Expert Tutoring
-          </span>
-        </motion.h1>
-
-
-            <motion.p 
-            className="text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-sm md:text-base mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            Expert tutoring in science and language from secondary school to university level. 
-            Personalized learning experiences tailored to your success.
-          </motion.p>
-          
-          <motion.div 
-            className="flex flex-wrap justify-center gap-3 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-          >
-            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-medium px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-full shadow-lg">
-              <Clock className="w-4 h-4 text-green-600" />
-              Online Sessions
-            </span>
-            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-medium px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-full shadow-lg">
-              <MapPin className="w-4 h-4 text-blue-600" />
-              In-Person Available
-            </span>
-          </motion.div>
-
-             {/* Additional Features Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-      >
-        {[
-          {
-            icon: <Clock className="w-8 h-8" />,
-            title: "Flexible Scheduling",
-            description: "Book sessions that fit your schedule, available 7 days a week",
-            color: "from-green-500 to-emerald-600"
-          },
-          {
-            icon: <Users className="w-8 h-8" />,
-            title: "Expert Tutors",
-            description: "Learn from qualified professionals with years of teaching experience",
-            color: "from-blue-500 to-cyan-600"
-          },
-          {
-            icon: <LibraryBig className="w-8 h-8" />,
-            title: "Cambridge Resources",
-            description: "Comprehensive study resources available for all classes following the Cambridge curriculum.",
-            color: "from-purple-500 to-pink-600"
-          }
-        ].map((feature, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            whileHover={{ y: -10, scale: 1.02 }}
-            className="relative p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden group"
-          >
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-            />
-            <div className="relative z-10">
-              <motion.div
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} text-white mb-4 shadow-lg`}
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                {feature.icon}
-              </motion.div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-        </div>
-        
-        {/* Floating Elements */}
-        <motion.div
-          className="absolute top-4 right-4 w-20 h-20 bg-blue-200/30 rounded-full blur-xl"
-          animate={{ 
-            y: [0, -10, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ 
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-4 left-4 w-16 h-16 bg-purple-200/30 rounded-full blur-xl"
-          animate={{ 
-            y: [0, 10, 0],
-            scale: [1, 0.9, 1]
-          }}
-          transition={{ 
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-      </motion.div>
-
-      {/* Subject Filters */}
-      <motion.div variants={itemVariants} className="mb-8 md:mb-12">
-        <div className="flex items-center justify-between mb-4">
-          {/* Meet Our Tutors Header */}
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-col items-center mb-8 md:mb-12"
-      >
-        <motion.h5 
-          className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Meet Our Tutors
-        </motion.h5>
-        <motion.div 
-          className="w-24 h-1 rounded-full bg-gradient-to-r from-blue-900 via-lightBlue-400 to-orange-600"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
-      </motion.div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="md:hidden"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <Filter className="w-4 h-4 mr-2" />
-            Filters
-          </Button>
-        </div>
-        
-        <motion.div 
-          className={`flex flex-wrap justify-center gap-2 md:gap-3 ${isMobile && !showFilters ? 'hidden' : ''}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, staggerChildren: 0.05 }}
-        >
-          {subjects.map((sub, index) => (
-            <motion.button
-              key={sub}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const newSub = selectedSubject === sub ? null : sub
-                setSelectedSubject(newSub)
-                setCurrentIndex(0)
-              }}
-              className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl ${
-                selectedSubject === sub
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white transform scale-105'
-                  : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-orange-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 border border-gray-200 dark:border-gray-700'
-              }`}
-            >
-              {sub}
-            </motion.button>
+      <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-white min-h-screen">
+        {/* Enhanced Decorative Elements */}
+        <div className="absolute top-4 sm:top-10 left-4 sm:left-10 grid grid-cols-4 sm:grid-cols-7 gap-1 sm:gap-2 opacity-20 animate-pulse">
+          {Array.from({ length: window.innerWidth < 640 ? 16 : 28 }, (_, i) => (
+            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#9e1b1b] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
 
-      
+        <div className="absolute bottom-4 sm:bottom-10 right-4 sm:right-10 grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2 opacity-20 animate-pulse delay-700">
+          {Array.from({ length: window.innerWidth < 640 ? 12 : 16 }, (_, i) => (
+            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#9e1b1b] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
+          ))}
+        </div>
 
-      {/* Tutor Carousel */}
-      <motion.div 
-        variants={itemVariants} 
-        className="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-white/20"
-      >
-        {/* Mobile Layout */}
-        {isMobile ? (
-          <div className="p-6">
-            <AnimatePresence mode="wait">
-              {currentProfile && (
-                <motion.div
-                  key={currentProfile.id}
-                  variants={profileVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="text-center"
-                >
-                  <div className="relative mb-6">
-                    <motion.div 
-                      className="w-48 h-64 mx-auto rounded-3xl overflow-hidden shadow-2xl"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <img 
-                      src={currentProfile.profile_url || '/api/placeholder/200/300'} 
-                      onError={(e) => e.currentTarget.src = '/api/placeholder/200/300'}
-                      alt={currentProfile.name}
-                      className="w-full h-full object-cover" 
-                    />
+        {/* Responsive Geometric Shapes */}
+        <div className="absolute top-0 right-0 w-32 sm:w-48 lg:w-96 h-full bg-gradient-to-bl from-[#9e1b1b] to-[#c54d42] transform skew-x-12 translate-x-16 sm:translate-x-24 lg:translate-x-48 opacity-80"></div>
+        <div className="absolute top-10 sm:top-20 right-8 sm:right-20 w-32 sm:w-48 lg:w-80 h-32 sm:h-48 lg:h-80 bg-white/20 transform skew-x-6 rounded-full blur-sm"></div>
 
-                    </motion.div>
-                    <motion.div
-                      className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium shadow-lg ${getModeColor(currentProfile.mode)}`}>
-                        {getModeIcon(currentProfile.mode)}
-                        {currentProfile.mode}
-                      </span>
-                    </motion.div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                        {currentProfile.name}
-                      </h3>
-                      <div className="flex flex-wrap justify-center gap-2 mb-4">
-                        {currentProfile.subjects.slice(0, 3).map((subject, idx) => (
-                          <span key={idx} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-xs">
-                            {subject}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <blockquote className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed italic">
-                      "{currentProfile.bio}"
-                    </blockquote>
-                    
-                  
-                    <CalendlyDialog
-                      trigger={
-                        <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg">
-                          Schedule a Lesson
-                        </button>
-                      }
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            
-            {/* Mobile Navigation */}
-            <div className="flex justify-between items-center mt-6">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => changeIndex('up')}
-                disabled={isAnimating}
-                className="rounded-full"
-              >
-                <ChevronUp className="w-4 h-4" />
-              </Button>
-              
-              <div className="flex space-x-2">
-                {filtered.map((_, idx) => (
-                  <motion.div
-                    key={idx}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      idx === currentIndex 
-                        ? 'bg-blue-600 w-6' 
-                        : 'bg-gray-300 dark:bg-gray-600'
-                    }`}
-                    whileHover={{ scale: 1.2 }}
-                  />
-                ))}
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20">
+          {/* Trust Indicators */}
+          <div className={`text-center mb-8 sm:mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm sm:text-base text-gray-600 bg-white/80 backdrop-blur-sm rounded-full px-4 sm:px-8 py-2 sm:py-3 mx-auto max-w-fit shadow-lg">
+              <div className="flex items-center">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#9e1b1b] mr-2" />
+                <span className="font-semibold">5+ Years Experience</span>
               </div>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => changeIndex('down')}
-                disabled={isAnimating}
-                className="rounded-full"
-              >
-                <ChevronDown className="w-4 h-4" />
-              </Button>
+              <div className="flex items-center">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#9e1b1b] mr-2" />
+                <span className="font-semibold">500+ Students</span>
+              </div>
+              <div className="flex items-center">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 mr-2 fill-current" />
+                <span className="font-semibold">4.9/5 Rating</span>
+              </div>
             </div>
           </div>
-        ) : (
-          /* Desktop Layout */
-          <div className="flex min-h-[600px]">
-            {/* Left Brand Strip */}
-            <motion.div 
-              className="w-20 bg-gradient-to-b from-blue-900 to-orange-600 flex flex-col items-center justify-center text-white relative overflow-hidden"
-              initial={{ x: -100 }}
-              animate={{ x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"
-                animate={{ 
-                  backgroundPosition: ["0% 0%", "0% 100%", "0% 0%"]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <div className="transform -rotate-90 text-sm font-bold tracking-widest relative z-10">
-                TUTORS
-              </div>
-            </motion.div>
 
-            {/* Thumbnails */}
-            <motion.div 
-              className="w-64 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm flex flex-col justify-center items-center space-y-4 border-r border-white/20 p-6 overflow-hidden"
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {filtered.map((tutor, idx) => (
-                <motion.div
-                  key={tutor.id}
-                  className={`relative w-20 h-24 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ${
-                    idx === currentIndex 
-                      ? 'ring-4 ring-blue-500 scale-110 shadow-2xl' 
-                      : 'opacity-60 hover:opacity-90 hover:scale-105 shadow-lg'
-                  }`}
-                  onClick={() => changeIndex(idx)}
-                  whileHover={{ y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <img 
-                    src={tutor.profile_url || '/api/placeholder/200/300'} 
-                    onError={(e) => e.currentTarget.src = '/api/placeholder/200/300'}
-                    alt={tutor.name}
-                    className="w-full h-full object-cover" 
-                  />
+          <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto gap-8 lg:gap-12">
+            {/* Left Content - Enhanced */}
+            <div className={`w-full lg:w-1/2 space-y-6 sm:space-y-8 text-center lg:text-left transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+              
+              {/* CTA Button - Mobile Optimized */}
 
+              
+                
+              <CalendlyDialog
+                      trigger={
+              <button 
+                className="inline-flex items-center bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                aria-label="Schedule a free demo tutoring session"
+              >
+                <Star className="w-4 h-4 mr-2 fill-current animate-pulse" />
+                <span className="hidden sm:inline">Schedule Session</span>
+                <span className="sm:hidden">Schedule Session</span>
+              </button>
 
-                  {idx === currentIndex && (
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
+            }
                     />
-                  )}
-                </motion.div>
-              ))}
-            </motion.div>
 
-            {/* Main Image */}
-            <motion.div 
-              className="flex-1 flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 relative overflow-hidden"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {/* Background Elements */}
-              <motion.div
-                className="absolute top-20 left-20 w-32 h-32 bg-blue-200/20 rounded-full blur-3xl"
-                animate={{ 
-                  x: [0, 30, 0],
-                  y: [0, -20, 0],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ 
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.div
-                className="absolute bottom-20 right-20 w-40 h-40 bg-purple-200/20 rounded-full blur-3xl"
-                animate={{ 
-                  x: [0, -25, 0],
-                  y: [0, 15, 0],
-                  scale: [1, 0.8, 1]
-                }}
-                transition={{ 
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 2
-                }}
-              />
-              
-              <AnimatePresence mode="wait">
-                {currentProfile && (
-                  <motion.div
-                    key={currentProfile.id}
-                    variants={profileVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="relative z-10"
-                  >
-                    <motion.div 
-                      className="w-80 h-96 lg:w-96 lg:h-[450px] rounded-3xl overflow-hidden shadow-2xl"
-                      whileHover={{ 
-                        scale: 1.02,
-                        rotateY: 5,
-                        rotateX: 5
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <img 
-                        src={currentProfile.profile_url || '/api/placeholder/400/500'} 
-                        alt={currentProfile.name} 
-                        className="w-full h-full object-cover" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+              {/* Headline - Responsive Typography */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#9e1b1b] leading-tight">
+                <span className="block">Private</span>
+                <span className="block bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] bg-clip-text text-transparent">Tutoring</span>
+              </h1>
 
-            {/* Profile Info */}
-            <motion.div 
-              className="w-96 lg:w-[420px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 flex flex-col justify-center border-l border-white/20"
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <AnimatePresence mode="wait">
-                {currentProfile && (
-                  <motion.div
-                    key={currentProfile.id}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.5 }}
-                    className="space-y-6"
-                  >
-                    <div>
-                      <motion.h2 
-                        className="text-3xl font-bold text-gray-900 dark:text-white mb-2"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        {currentProfile.name}
-                      </motion.h2>
-                      
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.3 }}
-                      >
-                        <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${getModeColor(currentProfile.mode)}`}>
-                          {getModeIcon(currentProfile.mode)}
-                          {currentProfile.mode}
-                        </span>
-                      </motion.div>
-                    </div>
+              {/* Enhanced Description */}
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">
+                  Expert tutoring in all Cambridge curriculum subjects from secondary school to university level with personalized attention and proven results.
+                </p>
 
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Subjects</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {currentProfile.subjects.map((subject, idx) => (
-                          <motion.span 
-                            key={idx}
-                            className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.5 + idx * 0.1 }}
-                            whileHover={{ scale: 1.05 }}
-                          >
-                            {subject}
-                          </motion.span>
-                        ))}
+                {/* Subjects List - Simple */}
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 sm:p-6 shadow-md max-w-4xl mx-auto lg:mx-0">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#9e1b1b] mb-4 text-center lg:text-left">Cambridge Curriculum Subjects</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
+                    {subjects.map((subject, index) => (
+                      <div key={subject.name} className="text-sm sm:text-base text-gray-700 hover:text-[#9e1b1b] transition-colors duration-200 cursor-default">
+                        • {subject.name}
                       </div>
-                    </motion.div>
-                    
-                    <motion.blockquote 
-                      className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed italic border-l-4 border-blue-500 pl-4"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                    >
-                      "{currentProfile.bio}"
-                    </motion.blockquote>
-                    
-                    
-                    
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      <Button 
-                        className="w-full bg-gradient-to-r from-blue-900 to-orange-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-                        onClick={() => navigate('/contact')}
-                        size="lg"
-                      >
-                        Start Learning Journey
-                      </Button>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Scroll Controls */}
-            <motion.div 
-              className="w-16 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm flex flex-col items-center justify-center space-y-6 border-l border-white/20"
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              <motion.button
-                onClick={() => changeIndex('up')}
-                disabled={isAnimating}
-                className="p-3 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/20 transition-all duration-300 disabled:opacity-50"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ChevronUp className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </motion.button>
-              
-              <div className="flex flex-col space-y-3">
-                {filtered.map((_, idx) => (
-                  <motion.div
-                    key={idx}
-                    className={`w-3 h-3 rounded-full transition-all duration-500 cursor-pointer ${
-                      idx === currentIndex 
-                        ? 'bg-blue-600 scale-125 shadow-lg' 
-                        : 'bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
-                    }`}
-                    onClick={() => changeIndex(idx)}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                  />
-                ))}
+                {/* Mode Information Display */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-md max-w-lg mx-auto lg:mx-0">
+                  <div className="flex rounded-lg bg-gray-100 p-1">
+                    <div className="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-[#9e1b1b] text-white shadow-md text-center">
+                      💻 Online Sessions
+                    </div>
+                    <div className="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600 text-center">
+                      🏠 In-Person Available
+                    </div>
+                  </div>
+                  <div className="mt-3 text-sm text-gray-600 text-center">
+                    Flexible online sessions via google meet  and face-to-face options where applicable
+                  </div>
+                </div>
               </div>
-              
-              <motion.button
-                onClick={() => changeIndex('down')}
-                disabled={isAnimating}
-                className="p-3 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/20 transition-all duration-300 disabled:opacity-50"
-                whileHover={{ scale: 1.1, y: 2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ChevronDown className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </motion.button>
-            </motion.div>
+
+              {/* Enhanced CTA Button */}
+              <button className="w-full sm:w-auto bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 group">
+                <span>See More Details</span>
+                <ArrowRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+            </div>
+
+            {/* Right Content - Enhanced */}
+            <div className={`w-full lg:w-1/2 relative mt-8 lg:mt-0 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+              <div className="relative flex justify-center">
+                <div className="w-64 sm:w-72 lg:w-80 h-64 sm:h-72 lg:h-80 mx-auto bg-white rounded-full shadow-2xl overflow-hidden border-4 sm:border-8 border-white hover:scale-105 transition-transform duration-500">
+                  <img
+                    src="/images/tutor.jpeg"
+                    alt="Professional tutor teaching Cambridge curriculum subjects"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Enhanced Free Demo Badge - Now Clickable */}
+                <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
+
+
+
+                  
+                  <CalendlyDialog
+                      trigger={
+                  <button
+                    className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg relative hover:scale-110 transition-transform duration-300 cursor-pointer"
+                    aria-label="Book free demo class"
+                  >
+                    <div className="text-center">
+                      <div className="font-semibold text-sm sm:text-base">Free Demo</div>
+                      <div className="text-xs sm:text-sm opacity-90">Class Available</div>
+                    </div>
+                    <div className="absolute top-0 left-6 sm:left-8 transform -translate-y-2">
+                      <div className="w-3 sm:w-4 h-3 sm:h-4 bg-[#9e1b1b] rotate-45"></div>
+                    </div>
+                  </button>
+                    }
+                    />
+                </div>
+              </div>
+
+              {/* Floating Achievement Badge */}
+              <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform duration-300">
+                <UserCheck className="w-6 sm:w-8 h-6 sm:h-8 text-white" />
+              </div>
+
+              {/* Success Stats - Floating Card */}
+              <div className="hidden lg:block absolute -right-8 top-20 bg-white rounded-lg shadow-lg p-4 border border-gray-100 hover:scale-105 transition-transform duration-300">
+                <div className="text-2xl font-bold text-[#9e1b1b]">98%</div>
+                <div className="text-sm text-gray-600">Success Rate</div>
+              </div>
+            </div>
           </div>
-        )}
-      </motion.div>
 
-     
+          {/* Enhanced Information Grid */}
+          <div className={`mt-12 sm:mt-16 lg:mt-20 transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {/* Cambridge Resources - Enhanced */}
+              <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                <div className="flex items-start space-x-3 mb-4">
+                  <div className="text-2xl">📚</div>
+                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Cambridge Resources</h3>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Comprehensive study resources for all Cambridge curriculum subjects with regular updates and past papers.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {subjects.slice(0, 8).map(subject => (
+                    <div key={subject.name} className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
+                      <span className="text-xs">{subject.name}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-sm text-gray-600 bg-gray-50 rounded-lg p-3">
+                  <strong>Includes:</strong> eBooks, past papers, notes, practice questions, video explanations for all subjects
+                </div>
+              </div>
 
-      
-    </motion.section>
+              {/* Exam Preparation - Enhanced */}
+              <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                <div className="flex items-start space-x-3 mb-4">
+                  <div className="text-2xl">📝</div>
+                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Exam Preparation</h3>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Structured exam preparation with mock tests and personalized feedback for IGCSE, AS & A Level examinations.
+                </p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Clock className="w-4 h-4 text-blue-500 mr-2" />
+                    Timed mock exams
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <BookOpen className="w-4 h-4 text-blue-500 mr-2" />
+                    Past paper practice
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Award className="w-4 h-4 text-blue-500 mr-2" />
+                    Performance tracking
+                  </div>
+                </div>
+                <div className="bg-blue-50 rounded-lg p-3 text-sm text-blue-700">
+                  <strong>Average improvement:</strong> 2+ grade levels across all subjects
+                </div>
+              </div>
+
+              {/* Essay & Thesis Writing - Enhanced */}
+              <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group md:col-span-2 lg:col-span-1">
+                <div className="flex items-start space-x-3 mb-4">
+                  <div className="text-2xl">🎓</div>
+                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Essay & Thesis Writing</h3>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Professional writing support from high school essays to university dissertations across all subjects.
+                </p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="w-4 h-4 text-purple-500 mr-2" />
+                    Structure & planning
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="w-4 h-4 text-purple-500 mr-2" />
+                    Research methods
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="w-4 h-4 text-purple-500 mr-2" />
+                    Citation & referencing
+                  </div>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-3 text-sm text-purple-700">
+                  <strong>Levels:</strong> IGCSE to University support available
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Schema.org Structured Data for SEO */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalService",
+            "name": "Private Tutoring Services - Cambridge Curriculum",
+            "description": "Expert private tutoring in all Cambridge curriculum subjects from secondary to university level",
+            "provider": {
+              "@type": "Person",
+              "name": "NCR Tutor",
+              "telephone": "+91-8929483938"
+            },
+            "serviceType": ["Mathematics Tutoring", "Physics Tutoring", "Chemistry Tutoring", "Biology Tutoring", "English Tutoring", "History Tutoring", "Geography Tutoring", "Economics Tutoring", "Business Studies Tutoring", "Psychology Tutoring", "Computer Science Tutoring", "Art & Design Tutoring", "Music Tutoring", "French Tutoring", "Spanish Tutoring", "German Tutoring"],
+            "areaServed": "India",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Cambridge Curriculum Tutoring Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Free Demo Class"
+                  }
+                }
+              ]
+            }
+          })}
+        </script>
+      </div>
+    </>
   )
 }
+
+export default TutoringServiceSection

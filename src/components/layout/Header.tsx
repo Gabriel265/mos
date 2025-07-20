@@ -59,8 +59,8 @@ export const Header = () => {
       <div className="bg-gray-900 text-white text-sm py-2 px-4 w-full fixed top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex gap-4">
-            <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> helpinghandtutor@mail.com</span>
-            <span className="flex items-center gap-1"><Phone className="w-4 h-4" /> +265 999 000 111</span>
+            <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> helpinghandtutor3@gmail.com</span>
+            <span className="flex items-center gap-1"><Phone className="w-4 h-4" /> +44 7301 096908</span>
           </div>
           <div className="hidden sm:flex gap-4 items-center">
             <span className="hidden md:inline">Get in touch for personalized assistance</span>
