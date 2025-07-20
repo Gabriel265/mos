@@ -5,7 +5,7 @@ import Tutoring from './Tutoring'
 import Resources from './Resources'
 import Contact from './Contact'
 import FloatingWidgets from './FloatingWidgets'
-import ITServices from './ITServices'
+import ITServices from './ITservices'
 
 
 
