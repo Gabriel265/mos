@@ -16,7 +16,6 @@ interface PackageProps {
 }
 
 const PackageCard: React.FC<PackageProps> = ({ title, price, currency, features, icon, isPopular = false }) => {
-  // Determine background image based on title
   const getBackgroundImage = () => {
     if (title === "Marketing") {
       return 'url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80)';
@@ -29,9 +28,16 @@ const PackageCard: React.FC<PackageProps> = ({ title, price, currency, features,
   };
 
   const backgroundImage = getBackgroundImage();
-  
+
   return (
-    <div className={`relative p-8 rounded-3xl ${isPopular ? 'text-white border-4 border-white shadow-2xl' : backgroundImage ? 'text-gray-800 border-4 border-gray-200 shadow-lg hover:shadow-xl' : 'bg-gray-50 text-gray-800 border-4 border-gray-200 shadow-lg hover:shadow-xl'} flex flex-col items-center text-center w-80 h-96 transition-all duration-300 overflow-hidden`}>
+    <div className={`relative p-8 rounded-3xl 
+      ${isPopular 
+        ? 'text-white border-4 border-white shadow-2xl' 
+        : backgroundImage 
+          ? 'text-gray-800 border-4 border-gray-200 shadow-lg hover:shadow-xl' 
+          : 'bg-gray-50 text-gray-800 border-4 border-gray-200 shadow-lg hover:shadow-xl'} 
+      flex flex-col items-center text-center w-full sm:w-72 md:w-80 transition-all duration-300 overflow-hidden`}>
+
       {backgroundImage && (
         <>
           <div 
@@ -45,19 +51,16 @@ const PackageCard: React.FC<PackageProps> = ({ title, price, currency, features,
           } transition-all duration-500`}></div>
         </>
       )}
-      
+
       <div className="relative z-10 flex flex-col items-center text-center h-full">
-        {/* Icon */}
         <div className="mb-4 transform hover:scale-110 transition-transform duration-300">
           {icon}
         </div>
-        
-        {/* Title */}
+
         {title && (
           <h3 className="text-lg font-bold mb-4 uppercase tracking-wide">{title}</h3>
         )}
-        
-        {/* Features */}
+
         <div className="flex-1 space-y-3 mb-4 w-full">
           {features.map((feature, index) => (
             <div key={index} className="flex items-start justify-start text-sm leading-relaxed">
@@ -66,8 +69,7 @@ const PackageCard: React.FC<PackageProps> = ({ title, price, currency, features,
             </div>
           ))}
         </div>
-        
-        {/* Price */}
+
         {price && currency && (
           <div className="text-2xl font-bold">
             {currency}.{price.toLocaleString()}
@@ -128,38 +130,31 @@ const Business: React.FC = () => {
       <div className="text-center mb-16">
         <div className="flex items-center justify-between mb-8">
           <div></div>
-          
-          {/* Decorative dots */}
           <div className="grid grid-cols-3 gap-2">
             {[...Array(9)].map((_, i) => (
               <div key={i} className="w-3 h-3 bg-gray-500 rounded-full opacity-60 hover:opacity-100 transition-opacity duration-300"></div>
             ))}
           </div>
         </div>
-        
+
         <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">Marketing & Business</h1>
         <h2 className="text-6xl font-bold text-gray-800 mb-4">Support</h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">Comprehensive solutions to elevate your business and streamline your operations</p>
       </div>
 
-      {/* Package Cards with improved spacing */}
-      <div className="flex justify-center items-center mb-16 max-w-7xl mx-auto relative">
-        <div className="flex items-center gap-8">
-          {/* Left Card */}
-          <div className="transform hover:scale-105 transition-all duration-300 hover:z-30 relative">
-            <PackageCard {...packages[0]} />
+      {/* Package Cards (Responsive) */}
+      <div className="flex flex-wrap justify-center gap-8 mb-16 max-w-7xl mx-auto">
+        {packages.map((pkg, i) => (
+          <div
+            key={i}
+            className={`
+              transition-transform duration-300 relative 
+              ${pkg.isPopular ? 'scale-105 md:scale-110 hover:scale-110' : 'hover:scale-105'}
+            `}
+          >
+            <PackageCard {...pkg} />
           </div>
-          
-          {/* Center Card (Popular) */}
-          <div className="transform scale-110 hover:scale-115 transition-all duration-300 z-20 relative">
-            <PackageCard {...packages[1]} />
-          </div>
-          
-          {/* Right Card */}
-          <div className="transform hover:scale-105 transition-all duration-300 hover:z-30 relative">
-            <PackageCard {...packages[2]} />
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Call to Action */}
@@ -175,7 +170,6 @@ const Business: React.FC = () => {
 
       {/* Footer */}
       <div className="text-center">
-        {/* Decorative elements */}
         <div className="flex justify-center items-center mb-6 space-x-8">
           <div className="grid grid-cols-3 gap-2">
             {[...Array(9)].map((_, i) => (
