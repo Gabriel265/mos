@@ -326,8 +326,7 @@ export const Header = () => {
         )}
       </div>
 
-      {/* Dynamic Spacer to prevent overlap with content */}
-      <div style={{ height: `${contactBarHeight + 60}px` }} />
+     
 
       {/* Add CSS animation styles */}
       <style jsx>{`
