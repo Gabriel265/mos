@@ -6,8 +6,7 @@ import Resources from './Resources'
 import Contact from './Contact'
 import FloatingWidgets from './FloatingWidgets'
 import ITServices from './ITservices'
-
-
+import Graphics from './Graphics'
 
 
 export default function Home() {
@@ -80,8 +79,11 @@ export default function Home() {
       <section id="tutoring" className="section bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Tutoring />
       </section>
-      <section id="contact" className="section bg-gray-100 transition-colors duration-300">
+      <section id="it" className="section bg-gray-100 transition-colors duration-300">
         <ITServices />
+      </section>
+      <section id="graphics" className="section bg-gray-100 transition-colors duration-300">
+        <Graphics />
       </section>
       <section id="contact" className="section bg-gray-100 transition-colors duration-300">
         <Contact />
