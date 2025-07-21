@@ -7,6 +7,7 @@ import Contact from './Contact'
 import FloatingWidgets from './FloatingWidgets'
 import ITServices from './ITservices'
 import Graphics from './Graphics'
+import Business from './Business'
 
 
 export default function Home() {
@@ -84,6 +85,9 @@ export default function Home() {
       </section>
       <section id="graphics" className="section bg-gray-100 transition-colors duration-300">
         <Graphics />
+      </section>
+      <section id="business" className="section bg-gray-100 transition-colors duration-300">
+        <Business />
       </section>
       <section id="contact" className="section bg-gray-100 transition-colors duration-300">
         <Contact />
