@@ -82,7 +82,7 @@ const Business: React.FC = () => {
   const packages = [
     {
       title: "Marketing",
-      price: 0,
+      price: "",
       currency: "",
       icon: <Send className="w-8 h-8" />,
       features: [
@@ -94,7 +94,7 @@ const Business: React.FC = () => {
     },
     {
       title: "",
-      price: 0,
+      price: "",
       currency: "",
       icon: <Plane className="w-12 h-12" />,
       isPopular: true,
@@ -106,7 +106,7 @@ const Business: React.FC = () => {
     },
     {
       title: "Personal Assistant",
-      price: 0,
+      price: "",
       currency: "",
       icon: <MousePointer className="w-8 h-8" />,
       features: [
