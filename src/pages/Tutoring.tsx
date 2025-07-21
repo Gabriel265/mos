@@ -139,11 +139,16 @@ const TutoringServiceSection: React.FC = () => {
               </div>
 
               {/* Enhanced CTA Button */}
+              <CalendlyDialog
+                      trigger={
               <button className="w-full sm:w-auto bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 group">
-                <span>See More Details</span>
+                <span>Schedule Session</span>
                 <ArrowRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
+            }
+                    />
             </div>
+            
 
             {/* Right Content - Enhanced */}
             <div className={`w-full lg:w-1/2 relative mt-8 lg:mt-0 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
