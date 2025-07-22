@@ -30,31 +30,25 @@ const TutoringServiceSection: React.FC = () => {
 
   return (
     <>
-      {/* SEO Meta Tags (would be in document head in real implementation) */}
-      <div style={{ display: 'none' }}>
-        <meta name="description" content="Expert private tutoring in all Cambridge curriculum subjects. Online & in-person sessions from secondary to university level. Free demo class available." />
-        <meta name="keywords" content="private tutoring, online tutoring, cambridge curriculum, mathematics tutor, physics tutor, chemistry tutor, english tutor, exam preparation" />
-        <meta property="og:title" content="Private Tutoring Services - Expert Cambridge Curriculum Tutoring" />
-        <meta property="og:description" content="Get expert tutoring in all Cambridge subjects. Free demo class available. Call +91-8929483938" />
-        <title>Private Tutoring Services - Expert Cambridge Curriculum Tutor</title>
-      </div>
+      
+      
 
-      <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-white min-h-screen">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#b8934d]/5 via-orange-50 to-white min-h-screen">
         {/* Enhanced Decorative Elements */}
         <div className="absolute top-4 sm:top-10 left-4 sm:left-10 grid grid-cols-4 sm:grid-cols-7 gap-1 sm:gap-2 opacity-20 animate-pulse">
           {Array.from({ length: window.innerWidth < 640 ? 16 : 28 }, (_, i) => (
-            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#9e1b1b] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
+            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#b8934d] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
           ))}
         </div>
 
         <div className="absolute bottom-4 sm:bottom-10 right-4 sm:right-10 grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2 opacity-20 animate-pulse delay-700">
           {Array.from({ length: window.innerWidth < 640 ? 12 : 16 }, (_, i) => (
-            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#9e1b1b] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
+            <div key={i} className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#b8934d] rounded-full transform hover:scale-150 transition-transform duration-300"></div>
           ))}
         </div>
 
         {/* Responsive Geometric Shapes */}
-        <div className="absolute top-0 right-0 w-32 sm:w-48 lg:w-96 h-full bg-gradient-to-bl from-[#9e1b1b] to-[#c54d42] transform skew-x-12 translate-x-16 sm:translate-x-24 lg:translate-x-48 opacity-80"></div>
+        <div className="absolute top-0 right-0 w-32 sm:w-48 lg:w-96 h-full bg-gradient-to-bl from-[#b8934d] to-[#b8934d] transform skew-x-12 translate-x-16 sm:translate-x-24 lg:translate-x-48 opacity-80"></div>
         <div className="absolute top-10 sm:top-20 right-8 sm:right-20 w-32 sm:w-48 lg:w-80 h-32 sm:h-48 lg:h-80 bg-white/20 transform skew-x-6 rounded-full blur-sm"></div>
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20">
@@ -62,11 +56,11 @@ const TutoringServiceSection: React.FC = () => {
           <div className={`text-center mb-8 sm:mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm sm:text-base text-gray-600 bg-white/80 backdrop-blur-sm rounded-full px-4 sm:px-8 py-2 sm:py-3 mx-auto max-w-fit shadow-lg">
               <div className="flex items-center">
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#9e1b1b] mr-2" />
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#b8934d] mr-2" />
                 <span className="font-semibold">5+ Years Experience</span>
               </div>
               <div className="flex items-center">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#9e1b1b] mr-2" />
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#b8934d] mr-2" />
                 <span className="font-semibold">500+ Students</span>
               </div>
               <div className="flex items-center">
@@ -81,13 +75,11 @@ const TutoringServiceSection: React.FC = () => {
             <div className={`w-full lg:w-1/2 space-y-6 sm:space-y-8 text-center lg:text-left transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
               
               {/* CTA Button - Mobile Optimized */}
-
-              
                 
               <CalendlyDialog
                       trigger={
               <button 
-                className="inline-flex items-center bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                className="inline-flex items-center bg-gradient-to-r from-[#0d1a2e] to-[#0d1a2e] hover:from-[#b8934d] hover:to-[#b8934d] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 aria-label="Schedule a free demo tutoring session"
               >
                 <Star className="w-4 h-4 mr-2 fill-current animate-pulse" />
@@ -99,9 +91,9 @@ const TutoringServiceSection: React.FC = () => {
                     />
 
               {/* Headline - Responsive Typography */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#9e1b1b] leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#b8934d] leading-tight">
                 <span className="block">Private</span>
-                <span className="block bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] bg-clip-text text-transparent">Tutoring</span>
+                <span className="block bg-gradient-to-r from-[#b8934d] to-[#b8934d] bg-clip-text text-transparent">Tutoring</span>
               </h1>
 
               {/* Enhanced Description */}
@@ -112,7 +104,7 @@ const TutoringServiceSection: React.FC = () => {
 
                 {/* Subjects List - Simple */}
                 <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 sm:p-6 shadow-md max-w-4xl mx-auto lg:mx-0">
-                  <h3 className="text-lg sm:text-xl font-bold text-[#9e1b1b] mb-4 text-center lg:text-left">Cambridge Curriculum Subjects</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#b8934d] mb-4 text-center lg:text-left">Cambridge Curriculum Subjects</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
                     {subjects.map((subject, index) => (
                       <div key={subject.name} className="text-sm sm:text-base text-gray-700 hover:text-[#9e1b1b] transition-colors duration-200 cursor-default">
@@ -125,7 +117,7 @@ const TutoringServiceSection: React.FC = () => {
                 {/* Mode Information Display */}
                 <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-md max-w-lg mx-auto lg:mx-0">
                   <div className="flex rounded-lg bg-gray-100 p-1">
-                    <div className="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-[#9e1b1b] text-white shadow-md text-center">
+                    <div className="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-[#b8934d] text-white shadow-md text-center">
                       💻 Online Sessions
                     </div>
                     <div className="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600 text-center">
@@ -141,7 +133,7 @@ const TutoringServiceSection: React.FC = () => {
               {/* Enhanced CTA Button */}
               <CalendlyDialog
                       trigger={
-              <button className="w-full sm:w-auto bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 group">
+              <button className="w-full sm:w-auto bg-gradient-to-r from-[#0d1a2e] to-[#0d1a2e] hover:from-[#b8934d] hover:to-[#b8934d] text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 group">
                 <span>Schedule Session</span>
                 <ArrowRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
@@ -171,7 +163,7 @@ const TutoringServiceSection: React.FC = () => {
                   <CalendlyDialog
                       trigger={
                   <button
-                    className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg relative hover:scale-110 transition-transform duration-300 cursor-pointer"
+                    className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#0d1a2e] hover:to-[#0d1a2e] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg relative hover:scale-110 transition-transform duration-300 cursor-pointer"
                     aria-label="Book free demo class"
                   >
                     <div className="text-center">
@@ -179,7 +171,7 @@ const TutoringServiceSection: React.FC = () => {
                       <div className="text-xs sm:text-sm opacity-90">Class Available</div>
                     </div>
                     <div className="absolute top-0 left-6 sm:left-8 transform -translate-y-2">
-                      <div className="w-3 sm:w-4 h-3 sm:h-4 bg-[#9e1b1b] rotate-45"></div>
+                      <div className="w-3 sm:w-4 h-3 sm:h-4 bg-[#b8934d] rotate-45"></div>
                     </div>
                   </button>
                     }
@@ -188,13 +180,13 @@ const TutoringServiceSection: React.FC = () => {
               </div>
 
               {/* Floating Achievement Badge */}
-              <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform duration-300">
+              <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-[#b8934d] to-[#b8934d] rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform duration-300">
                 <UserCheck className="w-6 sm:w-8 h-6 sm:h-8 text-white" />
               </div>
 
               {/* Success Stats - Floating Card */}
               <div className="hidden lg:block absolute -right-8 top-20 bg-white rounded-lg shadow-lg p-4 border border-gray-100 hover:scale-105 transition-transform duration-300">
-                <div className="text-2xl font-bold text-[#9e1b1b]">98%</div>
+                <div className="text-2xl font-bold text-[#b8934d]">98%</div>
                 <div className="text-sm text-gray-600">Success Rate</div>
               </div>
             </div>
@@ -207,7 +199,7 @@ const TutoringServiceSection: React.FC = () => {
               <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group">
                 <div className="flex items-start space-x-3 mb-4">
                   <div className="text-2xl">📚</div>
-                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Cambridge Resources</h3>
+                  <h3 className="text-xl font-bold text-[#b8934d] group-hover:text-[#0d1a2e] transition-colors duration-300">Cambridge Resources</h3>
                 </div>
                 <p className="text-gray-700 mb-4">
                   Comprehensive study resources for all Cambridge curriculum subjects with regular updates and past papers.
@@ -229,7 +221,7 @@ const TutoringServiceSection: React.FC = () => {
               <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group">
                 <div className="flex items-start space-x-3 mb-4">
                   <div className="text-2xl">📝</div>
-                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Exam Preparation</h3>
+                  <h3 className="text-xl font-bold text-[#b8934d] group-hover:text-[#0d1a2e] transition-colors duration-300">Exam Preparation</h3>
                 </div>
                 <p className="text-gray-700 mb-4">
                   Structured exam preparation with mock tests and personalized feedback for IGCSE, AS & A Level examinations.
@@ -257,7 +249,7 @@ const TutoringServiceSection: React.FC = () => {
               <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105 group md:col-span-2 lg:col-span-1">
                 <div className="flex items-start space-x-3 mb-4">
                   <div className="text-2xl">🎓</div>
-                  <h3 className="text-xl font-bold text-[#9e1b1b] group-hover:text-[#c54d42] transition-colors duration-300">Essay & Thesis Writing</h3>
+                  <h3 className="text-xl font-bold text-[#b8934d] group-hover:text-[#0d1a2e] transition-colors duration-300">Essay & Thesis Writing</h3>
                 </div>
                 <p className="text-gray-700 mb-4">
                   Professional writing support from high school essays to university dissertations across all subjects.
