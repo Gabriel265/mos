@@ -73,14 +73,14 @@ const ITservices: React.FC = () => {
                         onClick={prevSite}
                         className="w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
                       >
-                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#c54d42]" />
+                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
                       </button>
                       
                       <button 
                         onClick={nextSite}
                         className="w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transform translate-x-2 group-hover:translate-x-0 transition-all duration-300"
                       >
-                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#c54d42]" />
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
                       </button>
                     </div>
 
@@ -97,7 +97,7 @@ const ITservices: React.FC = () => {
                       onClick={() => window.open(currentSite.url, '_blank')}
                       className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all duration-300"
                     >
-                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5 text-[#c54d42]" />
+                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5 text-[#b8934d]" />
                     </button>
                   </div>
 
@@ -122,7 +122,7 @@ const ITservices: React.FC = () => {
               <div className="mt-6 md:mt-8 flex justify-center items-center">
                 <Link 
                   to="/contact" 
-                  className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-auto max-w-xs md:max-w-md flex items-center justify-center"
+                  className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-auto max-w-xs md:max-w-md flex items-center justify-center"
                 >
                   <MessageCircle className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="ml-2 text-sm md:text-base whitespace-nowrap">Request Quotation</span>
@@ -140,13 +140,13 @@ const ITservices: React.FC = () => {
               </p>
               
               <div className="space-y-4 md:space-y-6">
-                <div className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white p-4 md:p-6 rounded-lg">
+                <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white p-4 md:p-6 rounded-lg">
                   <h3 className="text-lg md:text-xl font-semibold mb-2">5+ Years Of Experience</h3>
                 </div>
                 
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Code className="w-5 h-5 md:w-6 md:h-6 text-[#c54d42]" />
+                    <Code className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm md:text-base">Custom Software Development</h4>
@@ -157,7 +157,7 @@ const ITservices: React.FC = () => {
 
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Monitor className="w-5 h-5 md:w-6 md:h-6 text-[#c54d42]" />
+                    <Monitor className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm md:text-base">Digital & IT Systems Support</h4>
@@ -171,7 +171,7 @@ const ITservices: React.FC = () => {
                     <h4 className="font-semibold text-gray-800 mb-1 text-sm md:text-base">Tech Solutions</h4>
                     <p className="text-gray-500 text-xs md:text-sm">Innovation & Development</p>
                   </div>
-                  <div className="w-12 h-8 md:w-16 md:h-12 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] rounded flex-shrink-0"></div>
+                  <div className="w-12 h-8 md:w-16 md:h-12 bg-gradient-to-r from-[#b8934d] to-[#b8934d] rounded flex-shrink-0"></div>
                 </div>
               </div>
             </div>
@@ -183,7 +183,7 @@ const ITservices: React.FC = () => {
       <section className="py-12 lg:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 lg:mb-16">
-            <p className="text-[#c54d42] font-medium mb-4">PROCESS</p>
+            <p className="text-[#b8934d] font-medium mb-4">PROCESS</p>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">How We Work</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
               Our proven methodology ensures successful project delivery from conception to completion
@@ -197,7 +197,7 @@ const ITservices: React.FC = () => {
                 key={index}
                 className="bg-white rounded-lg p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 text-center group"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white rounded-full flex items-center justify-center font-bold text-base md:text-lg mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white rounded-full flex items-center justify-center font-bold text-base md:text-lg mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   {index + 1}
                 </div>
                 <h3 className="font-semibold text-gray-800 text-sm md:text-base leading-tight">{step}</h3>
@@ -211,7 +211,7 @@ const ITservices: React.FC = () => {
               {Array.from({length: 4}).map((_, index) => (
                 <React.Fragment key={index}>
                   <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm font-bold ${
-                    index === 0 ? 'bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white' :
+                    index === 0 ? 'bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white' :
                     index === 1 ? 'bg-yellow-400 text-white' :
                     index === 2 ? 'bg-blue-400 text-white' : 'bg-green-400 text-white'
                   }`}>
@@ -219,7 +219,7 @@ const ITservices: React.FC = () => {
                   </div>
                   {index < 3 && (
                     <div className={`w-12 md:w-16 h-1 rounded ${
-                      index === 0 ? 'bg-gradient-to-r from-[#c54d42] to-yellow-400' :
+                      index === 0 ? 'bg-gradient-to-r from-[#b8934d] to-yellow-400' :
                       index === 1 ? 'bg-gradient-to-r from-yellow-400 to-blue-400' : 
                       'bg-gradient-to-r from-blue-400 to-green-400'
                     }`}></div>

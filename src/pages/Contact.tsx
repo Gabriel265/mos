@@ -184,7 +184,7 @@ export default function Contact() {
                 
               <CalendlyDialog
                 trigger={
-                  <button className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#b8934d] hover:bg-[#0d1a2e] rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                     Schedule a Call
                   </button>
                 }
@@ -208,7 +208,7 @@ export default function Contact() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      <Send className="w-5 h-5  group-hover:translate-x-1 transition-transform duration-300" />
                       <span>Send Message</span>
                     </>
                   )}

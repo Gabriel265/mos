@@ -46,7 +46,7 @@ const PackageCard: React.FC<PackageProps> = ({ title, price, currency, features,
           ></div>
           <div className={`absolute inset-0 ${
             isPopular 
-              ? 'bg-gradient-to-t from-[#c54d42]/80 via-[#9e1b1b]/60 to-[#c54d42]/40 hover:from-[#9e1b1b]/80 hover:via-[#c54d42]/60 hover:to-[#9e1b1b]/40' 
+              ? 'bg-gradient-to-t from-[#0d1a2e]/80 via-[#0d1a2e]/60 to-[#b8934d]/40 hover:from-[#b8934d]/80 hover:via-[#0d1a2e]/60 hover:to-[#0d1a2e]/40' 
               : 'bg-white/85 hover:bg-white/90'
           } transition-all duration-500`}></div>
         </>
@@ -161,7 +161,7 @@ const Business: React.FC = () => {
       <div className="text-center mb-12">
         <a 
           href="./Contact" 
-          className="inline-block bg-[#c54d42] hover:bg-[#9e1b1b] text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          className="inline-block bg-[#0d1a2e] hover:bg-[#b8934d] text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
         >
           Get Started Today
         </a>
