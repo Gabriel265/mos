@@ -91,9 +91,9 @@ const TutoringServiceSection: React.FC = () => {
                     />
 
               {/* Headline - Responsive Typography */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#b8934d] leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#0d1a2e] leading-tight">
                 <span className="block">Private</span>
-                <span className="block bg-gradient-to-r from-[#b8934d] to-[#b8934d] bg-clip-text text-transparent">Tutoring</span>
+                <span className="block bg-gradient-to-r from-[#0d1a2e] to-[#0d1a2e] bg-clip-text text-transparent">Tutoring</span>
               </h1>
 
               {/* Enhanced Description */}
