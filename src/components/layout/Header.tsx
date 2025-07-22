@@ -22,7 +22,7 @@ const servicesDropdown = [
   { title: 'Software & IT Solutions', sectionId: 'it' },
   { title: 'Creative & Digital Media', sectionId: 'graphics' },
   { title: 'Marketing & Business Support', sectionId: 'business' },
-  { title: 'AI & Automation', sectionId: 'business' },
+  { title: 'AI & Automation', sectionId: 'automation' },
   { title: 'Data & Analytics', sectionId: 'business' }
 ]
 

@@ -25,7 +25,7 @@ const TutoringServiceSection: React.FC = () => {
   ]
 
   const handleContactClick = () => {
-    window.location.href = 'tel:+918929483938'
+    window.location.href = 'tel:+447301096908'
   }
 
   return (
