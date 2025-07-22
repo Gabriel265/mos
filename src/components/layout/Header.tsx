@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Mail, Phone, Scale, ChevronDown } from 'lucide-react'
+import { Mail, Phone, ChevronDown } from 'lucide-react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 const navItems = [
@@ -129,9 +129,9 @@ export const Header = () => {
     <header className="relative z-50">
        {/* Top Contact Bar - Darker Colors */}
       <div 
-        ref={contactBarRef}
-        className="bg-gradient-to-r from-[#8b1a1a] to-[#7a1515] hover:from-[#7a1515] hover:to-[#8b1a1a] text-white text-sm py-2 px-4 w-full fixed top-0 z-50 transition-all duration-300"
-      >
+  ref={contactBarRef}
+  className="bg-[#d4a464] text-white text-sm py-2 px-4 w-full fixed top-0 z-50 transition-all duration-300"
+>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
             <span className="flex items-center gap-1 text-xs sm:text-sm">
@@ -147,7 +147,7 @@ export const Header = () => {
             <span className="hidden lg:inline text-xs xl:text-sm whitespace-nowrap">Get in touch for personalized assistance</span>
             <Link
               to="/contact"
-              className="bg-gradient-to-r from-[#a02020] to-[#8b1a1a] hover:from-[#8b1a1a] hover:to-[#a02020] px-3 py-1 rounded text-xs transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
+              className="bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e] hover:from-[#8b1a1a] hover:to-[#a02020] px-3 py-1 rounded text-xs transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
             >
               Schedule Consultancy
             </Link>
@@ -165,9 +165,12 @@ export const Header = () => {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between text-white">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-            <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+            <img 
+              src="/vite.svg" 
+              alt="HAT Logo" 
+              className="w-5 h-5 sm:w-6 sm:h-6" 
+            />
             <div>
-              <div className="text-base sm:text-lg font-bold leading-none">HAT</div>
               <div className="text-xs text-gray-300 -mt-1">Helping Hand Tutor</div>
             </div>
           </Link>
@@ -180,11 +183,11 @@ export const Header = () => {
                   <button
                     onMouseEnter={handleDropdownMouseEnter}
                     onMouseLeave={handleDropdownMouseLeave}
-                    className={`flex items-center gap-1 hover:text-orange-400 transition-all duration-200 text-sm lg:text-base ${
+                    className={`flex items-center gap-1 hover:text-[#d4a464] transition-all duration-200 text-sm lg:text-base ${
                       location.pathname === '/' && activeSection === item.sectionId
-                        ? 'text-orange-500 font-semibold'
+                        ? 'text-[#d4a464] font-semibold'
                         : location.pathname === item.to
-                        ? 'text-orange-500 font-semibold'
+                        ? 'text-[#d4a464] font-semibold'
                         : ''
                     }`}
                   >
@@ -194,11 +197,11 @@ export const Header = () => {
                 ) : (
                   <Link
                     to={item.to}
-                    className={`hover:text-orange-400 transition text-sm lg:text-base whitespace-nowrap ${
+                    className={`hover:text-[#d4a464] transition text-sm lg:text-base whitespace-nowrap ${
                       location.pathname === '/' && activeSection === item.sectionId
-                        ? 'text-orange-500 font-semibold'
+                        ? 'text-[#d4a464] font-semibold'
                         : location.pathname === item.to
-                        ? 'text-orange-500 font-semibold'
+                        ? 'text-[#d4a464] font-semibold'
                         : ''
                     }`}
                   >
@@ -230,11 +233,11 @@ export const Header = () => {
                             window.location.href = `/#${service.sectionId}`
                           }
                         }}
-                        className="block w-full text-left px-4 py-3 text-sm hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-orange-700 transition-all duration-200 group relative"
+                        className="block w-full text-left px-4 py-3 text-sm hover:bg-gradient-to-r hover:from-[#d4a464]/10 hover:to-[#d4a464]/20 hover:text-[#b8934d] transition-all duration-200 group relative"
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{service.title}</span>
-                          <div className="w-2 h-2 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                          <div className="w-2 h-2 bg-[#d4a464] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                         </div>
                         <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                       </button>
@@ -267,7 +270,7 @@ export const Header = () => {
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                       className={`flex items-center justify-between w-full text-left text-sm py-2 transition ${
                         location.pathname === item.to || activeSection === item.sectionId
-                          ? 'text-orange-400 font-semibold'
+                          ? 'text-[#d4a464] font-semibold'
                           : 'text-gray-200'
                       }`}
                     >
@@ -288,7 +291,7 @@ export const Header = () => {
                                 window.location.href = `/#${service.sectionId}`
                               }
                             }}
-                            className="block w-full text-left text-sm text-gray-300 hover:text-orange-400 transition-colors py-2 px-3 rounded hover:bg-gray-700"
+                            className="block w-full text-left text-sm text-gray-300 hover:text-[#d4a464] transition-colors py-2 px-3 rounded hover:bg-gray-700"
                           >
                             {service.title}
                           </button>
@@ -302,7 +305,7 @@ export const Header = () => {
                     onClick={() => setMenuOpen(false)}
                     className={`block text-sm py-2 transition ${
                       location.pathname === item.to || activeSection === item.sectionId
-                        ? 'text-orange-400 font-semibold'
+                        ? 'text-[#d4a464] font-semibold'
                         : 'text-gray-200'
                     }`}
                   >
@@ -317,7 +320,7 @@ export const Header = () => {
               <Link
                 to="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="block w-full text-center bg-gradient-to-r from-[#a02020] to-[#8b1a1a] hover:from-[#8b1a1a] hover:to-[#a02020] px-4 py-2 rounded text-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="block w-full text-center bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e]hover:from-[#8b1a1a] hover:to-[#a02020] px-4 py-2 rounded text-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Schedule Consultancy
               </Link>

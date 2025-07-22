@@ -11,16 +11,16 @@ const AccordionItem = ({ title, items }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center px-5 sm:px-7 py-5 sm:py-6 text-left hover:bg-gradient-to-r hover:from-gray-50 hover:to-white transition-all duration-300 group/btn focus:outline-none focus:ring-2 focus:ring-[#9e1b1b]/30 focus:ring-offset-2 rounded-2xl relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-[#9e1b1b]/5 to-[#c54d42]/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-[#0d1a2e]/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
         <div className="relative flex items-center gap-3">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-br from-[#9e1b1b] to-[#c54d42] group-hover/btn:scale-110 transition-transform duration-300"></div>
+          <div className="w-3 h-3 rounded-full bg-[#b8934d] group-hover/btn:scale-110 transition-transform duration-300"></div>
           <span className="text-base sm:text-lg font-bold text-gray-800 group-hover/btn:text-[#9e1b1b] transition-colors duration-300">
             {title}
           </span>
         </div>
         <div className="relative flex items-center">
           <ChevronDown
-            className={`w-6 h-6 text-[#9e1b1b] transform transition-all duration-300 ${
+            className={`w-6 h-6 text-[#b8934d] transform transition-all duration-300 ${
               isOpen ? 'rotate-180 scale-110' : 'group-hover/btn:scale-110 group-hover/btn:text-[#c54d42]'
             }`}
           />
@@ -31,19 +31,19 @@ const AccordionItem = ({ title, items }) => {
         isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       }`}>
         <div className="px-5 sm:px-7 pb-5 sm:pb-6 bg-gradient-to-br from-gray-50 to-white relative">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-[#9e1b1b] to-[#c54d42] rounded-full"></div>
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-[#b8934d] rounded-full"></div>
           <div className="space-y-4 sm:space-y-5 pt-4">
             {items.map((item, index) => (
               <div key={index} className="group/item bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-[#9e1b1b]/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#9e1b1b]/5 to-[#c54d42]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                <div className="absolute inset-0 bg--[#b8934d]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                 <div className="relative">
                   <div className="flex items-start gap-3 mb-2">
-                    <div className="w-2 h-2 rounded-full bg-gradient-to-br from-[#9e1b1b] to-[#c54d42] mt-2 group-hover/item:scale-125 transition-transform duration-300"></div>
-                    <h4 className="font-bold text-gray-900 text-sm sm:text-base group-hover/item:text-[#9e1b1b] transition-colors duration-300 leading-tight">
+                    <div className="w-2 h-2 rounded-full bg-[#b8934d] mt-2 group-hover/item:scale-125 transition-transform duration-300"></div>
+                    <h4 className="font-bold text-gray-900 text-sm sm:text-base group-hover/item:text-[#b8934d] transition-colors duration-300 leading-tight">
                       {item.title}
                     </h4>
                   </div>
-                  <p className="text-[#c54d42] font-semibold text-xs sm:text-sm mb-2 ml-5 italic">
+                  <p className="text-[#b8934d] font-semibold text-xs sm:text-sm mb-2 ml-5 italic">
                     {item.subtitle}
                   </p>
                   <p className="text-gray-600 text-xs sm:text-sm leading-relaxed ml-5 group-hover/item:text-gray-700 transition-colors duration-300">
@@ -152,13 +152,13 @@ export default function Services() {
     <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4">
       <div className="text-center mb-8 sm:mb-10">
         <div className="inline-flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 bg-gradient-to-br from-[#9e1b1b] to-[#c54d42] rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-[#b8934d] rounded-full flex items-center justify-center">
             <div className="w-3 h-3 bg-white rounded-full"></div>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#9e1b1b] to-[#c54d42] bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-[#b8934d] bg-clip-text text-transparent">
             Our Services
           </h2>
-          <div className="w-8 h-8 bg-gradient-to-br from-[#c54d42] to-[#9e1b1b] rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-[#b8934d] rounded-full flex items-center justify-center">
             <div className="w-3 h-3 bg-white rounded-full"></div>
           </div>
         </div>

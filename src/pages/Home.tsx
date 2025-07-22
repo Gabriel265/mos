@@ -34,9 +34,9 @@ export default function Home() {
         >
           <defs>
             <linearGradient id="overlayGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#9e1b1b" stopOpacity="0.9" />
-              <stop offset="50%" stopColor="#c54d42" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#d45645" stopOpacity="0.7" />
+              <stop offset="0%" stopColor="#b8934d " stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#b8934d " stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#b8934d " stopOpacity="0.7" />
             </linearGradient>
           </defs>
           <path d="M0,0 L650,0 Q900,400 650,800 L0,800 Z" fill="url(#overlayGradient)" />
@@ -56,14 +56,14 @@ export default function Home() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 drop-shadow-lg">
             Empowering Learning &amp; Digital Solutions
             <br />
-            <span className="text-transparent bg-gradient-to-r from-yellow-300 via-orange-300 to-orange-400 bg-clip-text drop-shadow-none">
+            <span className="text-transparent bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e] bg-clip-text drop-shadow-none">
               for the Cambridge Syllabus and Beyond
             </span>
           </h1>
 
           <button
             onClick={() => handleNavClick('/contact')}
-            className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-10 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 cursor-pointer mb-32 sm:mb-40"
+            className="bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e] hover:from-[#9e1b1b] hover:to-[#c54d42] text-white px-10 py-4 rounded-full font-semibold text-lg flex items-center space-x-3 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl border border-white/20 cursor-pointer mb-32 sm:mb-40"
           >
             <span>Get Started</span>
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
