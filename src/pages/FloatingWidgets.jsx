@@ -102,12 +102,12 @@ export default function FloatingWidgets() {
               overflow-hidden transition-all duration-300 ease-in-out
               ${chatMinimized ? 'h-12' : 'h-96 md:h-auto'}
             `}>
-              <div className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white p-3 flex justify-between items-center">
+              <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white p-3 flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <img 
-                      src="/images/hands.jpeg" 
-                      alt="Chatbot Avatar" 
+                      src="/logo.jpg" 
+                      alt="Helpin Hand Tutor" 
                       className="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm"
                     />
                     <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
@@ -142,7 +142,7 @@ export default function FloatingWidgets() {
                       className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
                       style={{ backgroundImage: 'url(/images/hero-background.png)' }}
                     ></div>
-                    <div className="absolute inset-0 bg-white bg-opacity-70"></div>
+                    <div className="absolute inset-0 bg-[#0d1a2e] bg-opacity-30"></div>
 
                     <div className="relative z-10 space-y-3">
                       {messages.map((msg, i) => (
@@ -189,7 +189,7 @@ export default function FloatingWidgets() {
                       <button 
                         onClick={handleSend}
                         disabled={!input.trim() || isTyping}
-                        className="bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#b83d32] hover:to-[#8e1515] disabled:from-gray-300 disabled:to-gray-400 text-white p-2 rounded-full transition-all duration-200 transform hover:scale-110 disabled:scale-100 disabled:cursor-not-allowed shadow-md"
+                        className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#0d1a2e] hover:to-[#0d1a2e] disabled:from-gray-300 disabled:to-gray-400 text-white p-2 rounded-full transition-all duration-200 transform hover:scale-110 disabled:scale-100 disabled:cursor-not-allowed shadow-md"
                         title="Send message"
                       >
                         <Send className="w-4 h-4" />
@@ -202,7 +202,7 @@ export default function FloatingWidgets() {
           ) : (
             <button
               onClick={toggleChat}
-              className="group relative bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] hover:from-[#b83d32] hover:to-[#8e1515] text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110"
+              className="group relative bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#0d1a2e] hover:to-[#0d1a2e] text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110"
               title="Open support chat"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] rounded-full animate-ping opacity-20 group-hover:opacity-30"></div>
