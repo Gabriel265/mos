@@ -77,13 +77,13 @@ const Graphics: React.FC = () => {
                   ref={videoRef}
                   className="w-full rounded-lg shadow-xl"
                   controls
-                  poster="/public/video-poster.jpg"
+                  poster="/logo.jpg"
                   preload="metadata"
                   muted
                   loop
                   playsInline
                 >
-                  <source src="/public/graphics-video.mp4" type="video/mp4" />
+                  <source src="/graphics-video.mp4" type="video/mp4" />
                   <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
