@@ -50,7 +50,7 @@ export default function Contact() {
   }
 
   const contactInfo = [
-    { icon: MapPin, text: 'Lilongwe, Malawi', color: 'text-blue-400' },
+    { icon: MapPin, text: 'No 5 Lee Road Office, Number 5, BlackHeath, London, Se3 9RQ', color: 'text-blue-400' },
     { icon: Phone, text: '+44 7301 096908', color: 'text-green-400' },
     { icon: Mail, text: 'helpinhandtutor3@gmail.com', color: 'text-pink-400' }
   ]
@@ -184,7 +184,7 @@ export default function Contact() {
                 
               <CalendlyDialog
                 trigger={
-                  <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#b8934d] hover:bg-[#0d1a2e] rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#5a8a89] hover:bg-[#0d1a2e] rounded-full text-white text-sm sm:text-base font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                     Schedule a Call
                   </button>
                 }

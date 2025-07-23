@@ -102,7 +102,7 @@ export default function FloatingWidgets() {
               overflow-hidden transition-all duration-300 ease-in-out
               ${chatMinimized ? 'h-12' : 'h-96 md:h-auto'}
             `}>
-              <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white p-3 flex justify-between items-center">
+              <div className="bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] text-white p-3 flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <img 
@@ -151,7 +151,7 @@ export default function FloatingWidgets() {
                             max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-lg
                             ${msg.from === 'bot'
                               ? 'bg-white text-gray-800 border border-gray-100 rounded-tl-md backdrop-blur-sm' 
-                              : 'bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] text-white rounded-tr-md'}
+                              : 'bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] text-white rounded-tr-md'}
                             transform transition-all duration-200 hover:scale-105
                           `}>
                             {msg.text}
@@ -189,7 +189,7 @@ export default function FloatingWidgets() {
                       <button 
                         onClick={handleSend}
                         disabled={!input.trim() || isTyping}
-                        className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#0d1a2e] hover:to-[#0d1a2e] disabled:from-gray-300 disabled:to-gray-400 text-white p-2 rounded-full transition-all duration-200 transform hover:scale-110 disabled:scale-100 disabled:cursor-not-allowed shadow-md"
+                        className="bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] hover:from-[#0d1a2e] hover:to-[#0d1a2e] disabled:from-gray-300 disabled:to-gray-400 text-white p-2 rounded-full transition-all duration-200 transform hover:scale-110 disabled:scale-100 disabled:cursor-not-allowed shadow-md"
                         title="Send message"
                       >
                         <Send className="w-4 h-4" />
@@ -202,7 +202,7 @@ export default function FloatingWidgets() {
           ) : (
             <button
               onClick={toggleChat}
-              className="group relative bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#0d1a2e] hover:to-[#0d1a2e] text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110"
+              className="group relative bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] hover:from-[#0d1a2e] hover:to-[#0d1a2e] text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110"
               title="Open support chat"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#c54d42] to-[#9e1b1b] rounded-full animate-ping opacity-20 group-hover:opacity-30"></div>

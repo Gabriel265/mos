@@ -7,9 +7,14 @@ const ITservices: React.FC = () => {
   
   const portfolioSites = [
     {
-      name: "Malawi Online Services",
-      url: "https://malawionlineservises.vercel.app",
-      description: "Government Services Platform"
+      name: "Helping Hand Tutor",
+      url: "https://www.helpinghandtutor.com",
+      description: "Tutoring and other Digital services"
+    },
+    {
+      name: "Accounting Consultancy",
+      url: "https://helpinghandaccountants.netlify.app/",
+      description: "Accounting firm"
     },
     {
       name: "Gabriel Kadiwa Portfolio",
@@ -49,14 +54,14 @@ const ITservices: React.FC = () => {
   const currentSite = portfolioSites[currentSiteIndex];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f5f2eb' }}>
       {/* Services Section */}
-      <section className="py-12 lg:py-20 bg-white">
+      <section className="py-12 lg:py-20" style={{ backgroundColor: '#fcf9f4' }}>
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-start space-y-8 lg:space-y-0 lg:space-x-12">
             <div className="w-full lg:flex-1">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl transform rotate-3"></div>
+                <div className="absolute inset-0 rounded-2xl transform rotate-3" style={{ backgroundColor: '#e8eaed' }}></div>
                 <div className="relative z-10 bg-white rounded-2xl w-full h-64 md:h-80 shadow-lg overflow-hidden group">
                   {/* Website Preview */}
                   <div className="relative h-full">
@@ -73,14 +78,14 @@ const ITservices: React.FC = () => {
                         onClick={prevSite}
                         className="w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
                       >
-                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
+                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#6b8e9d' }} />
                       </button>
                       
                       <button 
                         onClick={nextSite}
                         className="w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transform translate-x-2 group-hover:translate-x-0 transition-all duration-300"
                       >
-                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#6b8e9d' }} />
                       </button>
                     </div>
 
@@ -97,7 +102,7 @@ const ITservices: React.FC = () => {
                       onClick={() => window.open(currentSite.url, '_blank')}
                       className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all duration-300"
                     >
-                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5 text-[#b8934d]" />
+                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#6b8e9d' }} />
                     </button>
                   </div>
 
@@ -122,7 +127,8 @@ const ITservices: React.FC = () => {
               <div className="mt-6 md:mt-8 flex justify-center items-center">
                 <Link 
                   to="/contact" 
-                  className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-auto max-w-xs md:max-w-md flex items-center justify-center"
+                  className="text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-auto max-w-xs md:max-w-md flex items-center justify-center"
+                  style={{ backgroundColor: '#6b8e9d' }}
                 >
                   <MessageCircle className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="ml-2 text-sm md:text-base whitespace-nowrap">Request Quotation</span>
@@ -132,46 +138,46 @@ const ITservices: React.FC = () => {
             
 
             <div className="w-full lg:flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6" style={{ color: '#2c3a42' }}>
                 Software & IT Solutions
               </h2>
-              <p className="text-gray-600 mb-6 md:mb-8 text-sm md:text-base">
+              <p className="mb-6 md:mb-8 text-sm md:text-base" style={{ color: '#5e7b85' }}>
                 We deliver comprehensive software development and IT support services designed to scale your business operations and enhance productivity through innovative technology solutions.
               </p>
               
               <div className="space-y-4 md:space-y-6">
-                <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white p-4 md:p-6 rounded-lg">
+                <div className="text-white p-4 md:p-6 rounded-lg" style={{ backgroundColor: '#6b8e9d' }}>
                   <h3 className="text-lg md:text-xl font-semibold mb-2">5+ Years Of Experience</h3>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Code className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#dce3e6' }}>
+                    <Code className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#6b8e9d' }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm md:text-base">Custom Software Development</h4>
-                    <p className="text-gray-600 text-xs md:text-sm mb-1">Web, Android, and Desktop Apps + Hosting</p>
-                    <p className="text-gray-500 text-xs md:text-sm">Bespoke systems built for your needs.</p>
+                    <h4 className="font-semibold mb-2 text-sm md:text-base" style={{ color: '#2c3a42' }}>Custom Software Development</h4>
+                    <p className="text-xs md:text-sm mb-1" style={{ color: '#5e7b85' }}>Web, Android, and Desktop Apps + Hosting</p>
+                    <p className="text-xs md:text-sm" style={{ color: '#8fa7b1' }}>Bespoke systems built for your needs.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Monitor className="w-5 h-5 md:w-6 md:h-6 text-[#b8934d]" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#dce3e6' }}>
+                    <Monitor className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#6b8e9d' }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm md:text-base">Digital & IT Systems Support</h4>
-                    <p className="text-gray-600 text-xs md:text-sm mb-1">ICT troubleshooting, software setup, networking</p>
-                    <p className="text-gray-500 text-xs md:text-sm">Includes DHIS2, system onboarding, and user training.</p>
+                    <h4 className="font-semibold mb-2 text-sm md:text-base" style={{ color: '#2c3a42' }}>Digital & IT Systems Support</h4>
+                    <p className="text-xs md:text-sm mb-1" style={{ color: '#5e7b85' }}>ICT troubleshooting, software setup, networking</p>
+                    <p className="text-xs md:text-sm" style={{ color: '#8fa7b1' }}>Includes DHIS2, system onboarding, and user training.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
                   <div className="text-right flex-1">
-                    <h4 className="font-semibold text-gray-800 mb-1 text-sm md:text-base">Tech Solutions</h4>
-                    <p className="text-gray-500 text-xs md:text-sm">Innovation & Development</p>
+                    <h4 className="font-semibold mb-1 text-sm md:text-base" style={{ color: '#2c3a42' }}>Tech Solutions</h4>
+                    <p className="text-xs md:text-sm" style={{ color: '#8fa7b1' }}>Innovation & Development</p>
                   </div>
-                  <div className="w-12 h-8 md:w-16 md:h-12 bg-gradient-to-r from-[#b8934d] to-[#b8934d] rounded flex-shrink-0"></div>
+                  <div className="w-12 h-8 md:w-16 md:h-12 rounded flex-shrink-0" style={{ backgroundColor: '#6b8e9d' }}></div>
                 </div>
               </div>
             </div>
@@ -180,12 +186,12 @@ const ITservices: React.FC = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 lg:py-20 bg-gray-50">
+      <section className="py-12 lg:py-10" style={{ backgroundColor: '#f5f2eb' }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 lg:mb-16">
-            <p className="text-[#b8934d] font-medium mb-4">PROCESS</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">How We Work</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
+            <p className="font-medium mb-4" style={{ color: '#6b8e9d' }}>PROCESS</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: '#2c3a42' }}>How We Work</h2>
+            <p className="max-w-2xl mx-auto text-sm md:text-base" style={{ color: '#5e7b85' }}>
               Our proven methodology ensures successful project delivery from conception to completion
             </p>
           </div>
@@ -197,10 +203,10 @@ const ITservices: React.FC = () => {
                 key={index}
                 className="bg-white rounded-lg p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 text-center group"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white rounded-full flex items-center justify-center font-bold text-base md:text-lg mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 md:w-14 md:h-14 text-white rounded-full flex items-center justify-center font-bold text-base md:text-lg mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#6b8e9d' }}>
                   {index + 1}
                 </div>
-                <h3 className="font-semibold text-gray-800 text-sm md:text-base leading-tight">{step}</h3>
+                <h3 className="font-semibold text-sm md:text-base leading-tight" style={{ color: '#2c3a42' }}>{step}</h3>
               </div>
             ))}
           </div>
@@ -210,19 +216,20 @@ const ITservices: React.FC = () => {
             <div className="flex items-center space-x-3 md:space-x-6">
               {Array.from({length: 4}).map((_, index) => (
                 <React.Fragment key={index}>
-                  <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm font-bold ${
-                    index === 0 ? 'bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white' :
-                    index === 1 ? 'bg-yellow-400 text-white' :
-                    index === 2 ? 'bg-blue-400 text-white' : 'bg-green-400 text-white'
-                  }`}>
+                  <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm font-bold text-white`}
+                       style={{ backgroundColor: 
+                         index === 0 ? '#6b8e9d' :
+                         index === 1 ? '#8fa7b1' :
+                         index === 2 ? '#5e7b85' : '#2c3a42'
+                       }}>
                     {index + 1}
                   </div>
                   {index < 3 && (
-                    <div className={`w-12 md:w-16 h-1 rounded ${
-                      index === 0 ? 'bg-gradient-to-r from-[#b8934d] to-yellow-400' :
-                      index === 1 ? 'bg-gradient-to-r from-yellow-400 to-blue-400' : 
-                      'bg-gradient-to-r from-blue-400 to-green-400'
-                    }`}></div>
+                    <div className={`w-12 md:w-16 h-1 rounded`}
+                         style={{ backgroundColor: 
+                           index === 0 ? '#8fa7b1' :
+                           index === 1 ? '#5e7b85' : '#2c3a42'
+                         }}></div>
                   )}
                 </React.Fragment>
               ))}

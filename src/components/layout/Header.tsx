@@ -127,11 +127,11 @@ export const Header = () => {
 
   return (
     <header className="relative z-50">
-       {/* Top Contact Bar - Darker Colors */}
+       {/* Top Contact Bar - Using Curiosity (muted blue-green) */}
       <div 
-  ref={contactBarRef}
-  className="bg-[#d4a464] text-white text-sm py-2 px-4 w-full fixed top-0 z-50 transition-all duration-300"
->
+        ref={contactBarRef}
+        className="bg-[#7A9B9B] text-[#F7F5F3] text-sm py-2 px-4 w-full fixed top-0 z-50 transition-all duration-300"
+      >
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
             <span className="flex items-center gap-1 text-xs sm:text-sm">
@@ -147,7 +147,7 @@ export const Header = () => {
             <span className="hidden lg:inline text-xs xl:text-sm whitespace-nowrap">Get in touch for personalized assistance</span>
             <Link
               to="/contact"
-              className="bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e] hover:from-[#8b1a1a] hover:to-[#a02020] px-3 py-1 rounded text-xs transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
+              className="bg-gradient-to-r from-[#4A5D6A] via-[#3A4F5A] to-[#4A5D6A] hover:from-[#2F4147] hover:to-[#3A5158] px-3 py-1 rounded text-xs transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
             >
               Schedule Consultancy
             </Link>
@@ -155,14 +155,14 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Sticky Navigation */}
+      {/* Sticky Navigation - Using Printworks (deep charcoal blue-gray) */}
       <div
         className={`fixed left-0 right-0 transition-transform duration-300 z-40 ${
           showNav ? 'translate-y-0' : '-translate-y-full'
-        } bg-gray-800 bg-opacity-80 backdrop-blur shadow`}
+        } bg-[#3A464F] bg-opacity-90 backdrop-blur shadow`}
         style={{ top: `${contactBarHeight}px` }}
       >
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between text-white">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between text-[#F7F5F3]">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img 
@@ -171,7 +171,7 @@ export const Header = () => {
               className="w-5 h-5 sm:w-6 sm:h-6" 
             />
             <div>
-              <div className="text-xs text-gray-300 -mt-1">Helping Hand Tutor</div>
+              <div className="text-xs text-[#B8C5CC] -mt-1">Helping Hand Tutor</div>
             </div>
           </Link>
 
@@ -183,11 +183,11 @@ export const Header = () => {
                   <button
                     onMouseEnter={handleDropdownMouseEnter}
                     onMouseLeave={handleDropdownMouseLeave}
-                    className={`flex items-center gap-1 hover:text-[#d4a464] transition-all duration-200 text-sm lg:text-base ${
+                    className={`flex items-center gap-1 hover:text-[#7A9B9B] transition-all duration-200 text-sm lg:text-base ${
                       location.pathname === '/' && activeSection === item.sectionId
-                        ? 'text-[#d4a464] font-semibold'
+                        ? 'text-[#7A9B9B] font-semibold'
                         : location.pathname === item.to
-                        ? 'text-[#d4a464] font-semibold'
+                        ? 'text-[#7A9B9B] font-semibold'
                         : ''
                     }`}
                   >
@@ -197,11 +197,11 @@ export const Header = () => {
                 ) : (
                   <Link
                     to={item.to}
-                    className={`hover:text-[#d4a464] transition text-sm lg:text-base whitespace-nowrap ${
+                    className={`hover:text-[#7A9B9B] transition text-sm lg:text-base whitespace-nowrap ${
                       location.pathname === '/' && activeSection === item.sectionId
-                        ? 'text-[#d4a464] font-semibold'
+                        ? 'text-[#7A9B9B] font-semibold'
                         : location.pathname === item.to
-                        ? 'text-[#d4a464] font-semibold'
+                        ? 'text-[#7A9B9B] font-semibold'
                         : ''
                     }`}
                   >
@@ -209,18 +209,18 @@ export const Header = () => {
                   </Link>
                 )}
 
-                {/* Enhanced Services Dropdown */}
+                {/* Enhanced Services Dropdown - Using Poetry (cream) background */}
                 {item.hasDropdown && servicesDropdownOpen && (
                   <div
-                    className="absolute top-full left-0 mt-2 w-72 bg-white text-gray-800 rounded-xl shadow-2xl border border-gray-100 py-3 overflow-hidden transform transition-all duration-200 ease-out"
+                    className="absolute top-full left-0 mt-2 w-72 bg-[#F7F5F3] text-[#4A5D6A] rounded-xl shadow-2xl border border-[#B8C5CC] py-3 overflow-hidden transform transition-all duration-200 ease-out"
                     onMouseEnter={handleDropdownMouseEnter}
                     onMouseLeave={handleDropdownMouseLeave}
                     style={{
                       animation: 'fadeInScale 0.2s ease-out',
                     }}
                   >
-                    <div className="px-4 py-2 border-b border-gray-100">
-                      <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Our Services</h3>
+                    <div className="px-4 py-2 border-b border-[#B8C5CC]">
+                      <h3 className="text-sm font-semibold text-[#4A5D6A] uppercase tracking-wide">Our Services</h3>
                     </div>
                     {servicesDropdown.map((service, index) => (
                       <button
@@ -233,13 +233,13 @@ export const Header = () => {
                             window.location.href = `/#${service.sectionId}`
                           }
                         }}
-                        className="block w-full text-left px-4 py-3 text-sm hover:bg-gradient-to-r hover:from-[#d4a464]/10 hover:to-[#d4a464]/20 hover:text-[#b8934d] transition-all duration-200 group relative"
+                        className="block w-full text-left px-4 py-3 text-sm hover:bg-gradient-to-r hover:from-[#7A9B9B]/10 hover:to-[#7A9B9B]/20 hover:text-[#5A7B7B] transition-all duration-200 group relative"
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{service.title}</span>
-                          <div className="w-2 h-2 bg-[#d4a464] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                          <div className="w-2 h-2 bg-[#7A9B9B] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                         </div>
-                        <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                        <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#B8C5CC] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                       </button>
                     ))}
                   </div>
@@ -251,7 +251,7 @@ export const Header = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 rounded hover:bg-gray-700 flex-shrink-0"
+            className="md:hidden p-2 rounded hover:bg-[#4A5D6A] flex-shrink-0"
             aria-label={menuOpen ? 'Close Menu' : 'Open Menu'}
             aria-expanded={menuOpen}
           >
@@ -259,9 +259,9 @@ export const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Dropdown - Using deeper Printworks shade */}
         {menuOpen && (
-          <div className="md:hidden bg-gray-900 px-4 py-3 space-y-2 max-h-[70vh] overflow-y-auto">
+          <div className="md:hidden bg-[#2A363D] px-4 py-3 space-y-2 max-h-[70vh] overflow-y-auto">
             {navItems.map((item) => (
               <div key={item.to}>
                 {item.hasDropdown ? (
@@ -270,15 +270,15 @@ export const Header = () => {
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                       className={`flex items-center justify-between w-full text-left text-sm py-2 transition ${
                         location.pathname === item.to || activeSection === item.sectionId
-                          ? 'text-[#d4a464] font-semibold'
-                          : 'text-gray-200'
+                          ? 'text-[#7A9B9B] font-semibold'
+                          : 'text-[#B8C5CC]'
                       }`}
                     >
                       {item.label}
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {mobileServicesOpen && (
-                      <div className="ml-4 mt-2 space-y-1 bg-gray-800 rounded-lg p-3">
+                      <div className="ml-4 mt-2 space-y-1 bg-[#3A464F] rounded-lg p-3">
                         {servicesDropdown.map((service, index) => (
                           <button
                             key={index}
@@ -291,7 +291,7 @@ export const Header = () => {
                                 window.location.href = `/#${service.sectionId}`
                               }
                             }}
-                            className="block w-full text-left text-sm text-gray-300 hover:text-[#d4a464] transition-colors py-2 px-3 rounded hover:bg-gray-700"
+                            className="block w-full text-left text-sm text-[#B8C5CC] hover:text-[#7A9B9B] transition-colors py-2 px-3 rounded hover:bg-[#4A5D6A]"
                           >
                             {service.title}
                           </button>
@@ -305,8 +305,8 @@ export const Header = () => {
                     onClick={() => setMenuOpen(false)}
                     className={`block text-sm py-2 transition ${
                       location.pathname === item.to || activeSection === item.sectionId
-                        ? 'text-[#d4a464] font-semibold'
-                        : 'text-gray-200'
+                        ? 'text-[#7A9B9B] font-semibold'
+                        : 'text-[#B8C5CC]'
                     }`}
                   >
                     {item.label}
@@ -315,12 +315,12 @@ export const Header = () => {
               </div>
             ))}
             
-            {/* Mobile Contact Button */}
-            <div className="pt-2 border-t border-gray-700 mt-4">
+            {/* Mobile Contact Button - Using Indulgence (steel blue-gray) */}
+            <div className="pt-2 border-t border-[#4A5D6A] mt-4">
               <Link
                 to="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="block w-full text-center bg-gradient-to-r from-[#0d1a2e] via-[#1a2f45] to-[#0d1a2e]hover:from-[#8b1a1a] hover:to-[#a02020] px-4 py-2 rounded text-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="block w-full text-center bg-gradient-to-r from-[#4A5D6A] via-[#3A4F5A] to-[#4A5D6A] hover:from-[#2F4147] hover:to-[#3A5158] px-4 py-2 rounded text-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Schedule Consultancy
               </Link>
@@ -328,8 +328,6 @@ export const Header = () => {
           </div>
         )}
       </div>
-
-     
 
       {/* Add CSS animation styles */}
       <style jsx>{`

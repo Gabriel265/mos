@@ -66,7 +66,7 @@ const Graphics: React.FC = () => {
               
               {/* Hire Us Badge */}
               <div className="absolute top-2 right-2 sm:top-4 sm:right-4 lg:top-8 lg:right-8">
-                <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] hover:from-[#b8934d] hover:to-[#b8934d] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold transform rotate-12 shadow-lg cursor-pointer transition-all duration-300 hover:scale-105">
+                <div className="bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] hover:from-[#5a8a89] hover:to-[#5a8a89] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold transform rotate-12 shadow-lg cursor-pointer transition-all duration-300 hover:scale-105">
                   HIRE US TODAY!
                 </div>
               </div>
@@ -99,14 +99,14 @@ const Graphics: React.FC = () => {
                   Graphic<br />
                   Design
                 </h2>
-                <div className="inline-block bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white px-3 sm:px-4 py-1 sm:py-2 rounded font-bold mt-2 text-sm sm:text-base">
+                <div className="inline-block bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] text-white px-3 sm:px-4 py-1 sm:py-2 rounded font-bold mt-2 text-sm sm:text-base">
                   Services?
                 </div>
               </div>
 
               {/* Services List */}
               <div className="mb-6 sm:mb-8">
-                <div className="bg-gradient-to-r from-[#b8934d] to-[#b8934d] text-white px-3 sm:px-4 py-2 rounded-t font-bold text-sm sm:text-base">
+                <div className="bg-gradient-to-r from-[#5a8a89] to-[#5a8a89] text-white px-3 sm:px-4 py-2 rounded-t font-bold text-sm sm:text-base">
                   We Do
                 </div>
                 <div className="bg-slate-50 p-3 sm:p-4 lg:p-6 rounded-b-lg max-h-96 overflow-y-auto">
