@@ -166,7 +166,7 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img 
-              src="/vite.svg" 
+              src="/logo.jpg" 
               alt="HAT Logo" 
               className="w-5 h-5 sm:w-6 sm:h-6" 
             />
