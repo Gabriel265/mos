@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Phone, UserCheck, Star, ArrowRight, BookOpen, Award, Clock, Users, CheckCircle, MessageCircle, Mail } from 'lucide-react'
+import CalendlyDialog from '@/components/shared/CalendlyDialog'
 
 const CalendlyDialog = ({ trigger }) => {
   return trigger
