@@ -32,7 +32,7 @@ export default function FloatingWidgets() {
     setIsTyping(true)
 
     try {
-      const res = await fetch('https://mos-chatbot.onrender.com/api/chat/', {
+      const res = await fetch('https://helpinghandtutor.com/api/chat/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage })
